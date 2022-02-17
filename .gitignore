@@ -1,0 +1,6 @@
+venv
+__pycache__
+PROJECT.md
+build
+dist
+*.egg-info
