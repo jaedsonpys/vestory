@@ -4,7 +4,7 @@ from os import mkdir, path
 
 
 def _write_file(content: str, path: str) -> None:
-    with open(path, 'wb') as file_w:
+    with open(path, 'w') as file_w:
         file_w.write(content)
 
 
@@ -41,7 +41,10 @@ def init_repo(local: str) -> None:
                       'init_date': init_date}
 
     # salvando configurações
-    _write_file(json.dumps(vestory_config, ensure_ascii=False), repo_path)
+    config_file = path.join(repo_path, 'vestory.config.json')
+    
+    with open(config_file, 'w') as file_w:
+        json.dump(vestory_config, file_w, indent=4)
     
     print(f'Novo repositório criado em "{repo_path}".')
 
