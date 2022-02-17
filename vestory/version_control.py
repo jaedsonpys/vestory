@@ -10,9 +10,11 @@ def _write_file(content: str, path: str) -> None:
 
 def _get_files_tracked() -> list:
     local = getcwd()
-    repo_path = path.join(local, '.vestory')
 
-    with open(repo_path, 'r') as file_r:
+    repo_path = path.join(local, '.vestory')
+    config_file = path.join(repo_path, 'vestory.config.json')
+
+    with open(config_file, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     return vestory_config['tracking_files']
