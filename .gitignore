@@ -4,3 +4,4 @@ PROJECT.md
 build
 dist
 *.egg-info
+.vestory
