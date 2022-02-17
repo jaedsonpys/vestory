@@ -35,10 +35,10 @@ def init_repo(local: str) -> None:
     init_date = str(datetime.now())
 
     # adicionando arquivo de configuração
-    vestory_config = {'tracking_files': list(),
-                      'author': author,
+    vestory_config = {'author': author,
                       'author_email': author_email,
-                      'init_date': init_date}
+                      'init_date': init_date,
+                      'tracking_files': list()}
 
     # salvando configurações
     config_file = path.join(repo_path, 'vestory.config.json')
