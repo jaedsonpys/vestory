@@ -89,6 +89,7 @@ def add_files(files: list) -> None:
                 print(f'\033[31m"{file}" não encontrado\033[m')
 
     tracked_files.extend(to_add)
+    _update_tracked_files(tracked_files)
 
 
 if __name__ == '__main__':
