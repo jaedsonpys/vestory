@@ -18,6 +18,21 @@ def _get_files_tracked() -> list:
     return vestory_config['tracking_files']
 
 
+def _update_tracked_files(files: list) -> None:
+    local = getcwd()
+
+    repo_path = path.join(local, '.vestory')
+    config_file = path.join(repo_path, 'vestory.config.json')
+
+    with open(config_file, 'r') as file_r:
+        vestory_config = json.load(file_r)
+
+    vestory_config['tracking_files'] = files
+
+    with open(config_file, 'w') as file_w:
+        json.dump(vestory_config, file_w, indent=4)
+
+
 def _check_repo_exists() -> bool:
     local = getcwd()
     repo_path = path.join(local, '.vestory')
@@ -70,7 +85,7 @@ def add_files(files: list) -> None:
     :param files: Arquivos a serem adicionados.
     :type files: list
     """
-    
+
     if not _check_repo_exists():
         print('Impossível adicionar arquivos.')
         print('\033[31mNenhum repositório encontrado\033[m')
