@@ -8,6 +8,13 @@ def _write_file(content: str, path: str) -> None:
         file_w.write(content)
 
 
+def _check_repo_exists() -> bool:
+    local = getcwd()
+    repo_path = path.join(local, '.vestory')
+
+    return path.isdir(repo_path)
+
+
 def init_repo() -> None:
     """Inicializa um repositório
     vazio.
