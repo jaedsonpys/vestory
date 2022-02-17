@@ -24,15 +24,13 @@ def init_repo() -> None:
     """
 
     local = getcwd()
+    repo_path = path.join(local, '.vestory')
+
+    if _check_repo_exists():
+        print(f'Já existe um repositório em "{repo_path}"')
 
     # criando diretório ".vestory"
-    repo_path = path.join(local, '.vestory')
-    
-    try:
-        mkdir(repo_path)
-    except FileExistsError:
-        print(f'Já existe um repositório em "{repo_path}".')
-        return None
+    mkdir(repo_path)
 
     # obtendo informações
     author = input('Nome: ').strip()
