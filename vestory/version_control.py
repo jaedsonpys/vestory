@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from os import mkdir, path
+from os import getcwd, mkdir, path
 
 
 def _write_file(content: str, path: str) -> None:
@@ -8,7 +8,7 @@ def _write_file(content: str, path: str) -> None:
         file_w.write(content)
 
 
-def init_repo(local: str) -> None:
+def init_repo() -> None:
     """Inicializa um repositório
     vazio.
 
@@ -16,8 +16,7 @@ def init_repo(local: str) -> None:
     :type local: str
     """
 
-    if not path.isdir(local):
-        raise NotADirectoryError('"local" não é um diretório')
+    local = getcwd()
 
     # criando diretório ".vestory"
     repo_path = path.join(local, '.vestory')
@@ -50,4 +49,4 @@ def init_repo(local: str) -> None:
 
 
 if __name__ == '__main__':
-    init_repo('/home/jaedsonpys/Documentos/vestory-project')
+    init_repo()
