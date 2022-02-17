@@ -2,6 +2,11 @@ from datetime import datetime
 from os import mkdir, path
 
 
+def _write_file(content: bytes, path: str) -> None:
+    with open(path, 'wb') as file_w:
+        file_w.write(content)
+
+
 def init_repo(local: str) -> None:
     """Inicializa um repositório
     vazio.
