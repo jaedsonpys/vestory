@@ -2,6 +2,10 @@ import json
 from datetime import datetime
 from os import getcwd, mkdir, path
 
+local = getcwd()
+repo_path = path.join(local, '.vestory')
+config_file = path.join(repo_path, 'vestory.config.json')
+
 
 def _write_file(content: str, path: str) -> None:
     with open(path, 'w') as file_w:
@@ -9,11 +13,6 @@ def _write_file(content: str, path: str) -> None:
 
 
 def _get_files_tracked() -> list:
-    local = getcwd()
-
-    repo_path = path.join(local, '.vestory')
-    config_file = path.join(repo_path, 'vestory.config.json')
-
     with open(config_file, 'r') as file_r:
         vestory_config = json.load(file_r)
 
@@ -21,11 +20,6 @@ def _get_files_tracked() -> list:
 
 
 def _update_tracked_files(files: list) -> None:
-    local = getcwd()
-
-    repo_path = path.join(local, '.vestory')
-    config_file = path.join(repo_path, 'vestory.config.json')
-
     with open(config_file, 'r') as file_r:
         vestory_config = json.load(file_r)
 
@@ -36,9 +30,6 @@ def _update_tracked_files(files: list) -> None:
 
 
 def _check_repo_exists() -> bool:
-    local = getcwd()
-    repo_path = path.join(local, '.vestory')
-
     return path.isdir(repo_path)
 
 
@@ -49,9 +40,6 @@ def init_repo() -> None:
     :param local: Local do repositório.
     :type local: str
     """
-
-    local = getcwd()
-    repo_path = path.join(local, '.vestory')
 
     if _check_repo_exists():
         print(f'Já existe um repositório em "{repo_path}"')
@@ -71,9 +59,7 @@ def init_repo() -> None:
                       'init_date': init_date,
                       'tracking_files': list()}
 
-    # salvando configurações
-    config_file = path.join(repo_path, 'vestory.config.json')
-    
+    # salvando configurações    
     with open(config_file, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
     
