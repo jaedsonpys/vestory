@@ -63,5 +63,30 @@ def init_repo() -> None:
     print(f'Novo repositório criado em "{repo_path}".')
 
 
+def add_files(files: list) -> None:
+    """Adiciona os arquivos
+    a árvore de rastreamento.
+
+    :param files: Arquivos a serem adicionados.
+    :type files: list
+    """
+    
+    if not _check_repo_exists():
+        print('Impossível adicionar arquivos.')
+        print('\033[31mNenhum repositório encontrado\033[m')
+    
+    tracked_files = _get_files_tracked()
+    to_add = list()
+
+    for file in files:
+        if file not in tracked_files:
+            if path.isfile(file):
+                to_add.append(file)
+            else:
+                print(f'\033[31m"{file}" não encontrado\033[m')
+
+    tracked_files.extend(to_add)
+
+
 if __name__ == '__main__':
     init_repo()
