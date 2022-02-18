@@ -43,6 +43,7 @@ def init_repo() -> None:
 
     if _check_repo_exists():
         print(f'Já existe um repositório em "{repo_path}"')
+        return None
 
     # criando diretório ".vestory"
     mkdir(repo_path)
@@ -77,6 +78,7 @@ def add_files(files: list) -> None:
     if not _check_repo_exists():
         print('Impossível adicionar arquivos.')
         print('\033[31mNenhum repositório encontrado\033[m')
+        return None
     
     tracked_files = _get_files_tracked()
     to_add = list()
