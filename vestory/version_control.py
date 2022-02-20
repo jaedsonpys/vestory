@@ -2,6 +2,8 @@ import json
 from datetime import datetime
 from os import getcwd, mkdir, path
 
+from hashlib import md5
+
 local = getcwd()
 repo_path = path.join(local, '.vestory')
 config_file = path.join(repo_path, 'vestory.config.json')
@@ -31,6 +33,15 @@ def _update_tracked_files(files: list) -> None:
 
 def _check_repo_exists() -> bool:
     return path.isdir(repo_path)
+
+
+def _enumerate_lines(lines: str):
+    result = {}
+
+    for i, line in enumerate(lines):
+        result[i] = line
+
+    return result
 
 
 def init_repo() -> None:
