@@ -5,7 +5,9 @@ from os import getcwd, mkdir, path
 from hashlib import md5
 
 local = getcwd()
+
 repo_path = path.join(local, '.vestory')
+changes_dir = path.join(repo_path, 'changes')
 config_file = path.join(repo_path, 'vestory.config.json')
 
 
