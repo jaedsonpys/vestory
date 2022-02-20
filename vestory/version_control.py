@@ -126,7 +126,13 @@ def submit_change(files: list, comment: str) -> None:
         print('\033[31mNenhum repositório encontrado\033[m')
         return None
 
+    tracked_files = _get_files_tracked()
+
     for file in files:
+        # ignorando arquivo não rastreado
+        if file not in tracked_files:
+            continue
+
         file_history_path = path.join(CHANGES_DIR, md5(file))
 
         # primeira mudança
