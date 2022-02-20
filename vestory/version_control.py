@@ -113,7 +113,7 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
-def submit_change(files: list) -> None:
+def submit_change(files: list, comment: str) -> None:
     """Salva a alteração
     de arquivos.
 
@@ -136,7 +136,7 @@ def submit_change(files: list) -> None:
 
             file_lines = _enumerate_lines(file_content)
             change_info = {'date': str(datetime.now()),
-                           'comment': '',
+                           'comment': comment,
                            'file': file_lines}
 
             change_info_json = json.dumps(change_info, ensure_ascii=False)
