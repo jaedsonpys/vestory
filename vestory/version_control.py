@@ -1,14 +1,14 @@
 import json
 from datetime import datetime
-from os import getcwd, mkdir, path
-
 from hashlib import md5
+from os import getcwd, mkdir, path
+from typing import Final
 
-local = getcwd()
+LOCAL: Final = getcwd()
 
-repo_path = path.join(local, '.vestory')
-changes_dir = path.join(repo_path, 'changes')
-config_file = path.join(repo_path, 'vestory.config.json')
+REPO_PATH: Final = path.join(LOCAL, '.vestory')
+CHANGES_DIR: Final = path.join(REPO_PATH, 'changes')
+CONFIG_FILE: Final = path.join(REPO_PATH, 'vestory.config.json')
 
 
 def _write_file(content: str, path: str) -> None:
@@ -17,24 +17,24 @@ def _write_file(content: str, path: str) -> None:
 
 
 def _get_files_tracked() -> list:
-    with open(config_file, 'r') as file_r:
+    with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     return vestory_config['tracking_files']
 
 
 def _update_tracked_files(files: list) -> None:
-    with open(config_file, 'r') as file_r:
+    with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     vestory_config['tracking_files'] = files
 
-    with open(config_file, 'w') as file_w:
+    with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
 
 
 def _check_repo_exists() -> bool:
-    return path.isdir(repo_path)
+    return path.isdir(REPO_PATH)
 
 
 def _enumerate_lines(lines: str):
@@ -55,11 +55,11 @@ def init_repo() -> None:
     """
 
     if _check_repo_exists():
-        print(f'Já existe um repositório em "{repo_path}"')
+        print(f'Já existe um repositório em "{REPO_PATH}"')
         return None
 
     # criando diretório ".vestory"
-    mkdir(repo_path)
+    mkdir(REPO_PATH)
 
     # obtendo informações
     author = input('Nome: ').strip()
@@ -74,10 +74,10 @@ def init_repo() -> None:
                       'tracking_files': list()}
 
     # salvando configurações    
-    with open(config_file, 'w') as file_w:
+    with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
     
-    print(f'Novo repositório criado em "{repo_path}".')
+    print(f'Novo repositório criado em "{REPO_PATH}".')
 
 
 def add_files(files: list) -> None:
