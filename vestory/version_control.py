@@ -1,3 +1,4 @@
+from base64 import b64encode
 import json
 from datetime import datetime
 from hashlib import md5
@@ -119,6 +120,24 @@ def submit_change(files: list) -> None:
         print('Impossível adicionar arquivos.')
         print('\033[31mNenhum repositório encontrado\033[m')
         return None
+
+    for file in files:
+        file_history_path = path.join(CHANGES_DIR, md5(file))
+
+        # primeira mudança
+        if not path.isfile(file_history_path):
+            with open(file, 'r') as file_r:
+                file_content = file_r.readlines()
+
+            file_lines = _enumerate_lines(file_content)
+            change_info = {'date': str(datetime.now()),
+                           'comment': '',
+                           'file': file_lines}
+
+            change_info_json = json.dumps(change_info, ensure_ascii=False)
+            change_info_base64 = b64encode(change_info_json.encode())
+
+            _write_file(change_info_base64, file_history_path)
 
 
 if __name__ == '__main__':
