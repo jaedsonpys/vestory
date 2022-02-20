@@ -94,5 +94,19 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
+def submit_change(files: list) -> None:
+    """Salva a alteração
+    de arquivos.
+
+    :param files: Arquivos a serem submetidos.
+    :type files: list
+    """
+
+    if not _check_repo_exists():
+        print('Impossível adicionar arquivos.')
+        print('\033[31mNenhum repositório encontrado\033[m')
+        return None
+
+
 if __name__ == '__main__':
     init_repo()
