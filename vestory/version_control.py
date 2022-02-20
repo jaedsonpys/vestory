@@ -17,6 +17,11 @@ def _write_file(content: str, path: str) -> None:
         file_w.write(content)
 
 
+def _update_file(content: str, path: str) -> None:
+    with open(path, 'a') as file_w:
+        file_w.write(content)
+
+
 def _get_files_tracked() -> list:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
