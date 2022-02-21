@@ -43,7 +43,7 @@ def _check_repo_exists() -> bool:
     return path.isdir(REPO_PATH)
 
 
-def _enumerate_lines(lines: str):
+def _enumerate_lines(lines: str) -> dict:
     result = {}
 
     for i, line in enumerate(lines):
