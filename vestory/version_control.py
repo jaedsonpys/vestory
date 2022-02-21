@@ -1,4 +1,4 @@
-from base64 import b64encode
+from base64 import b64decode, b64encode
 import json
 from datetime import datetime
 from hashlib import md5
@@ -112,6 +112,25 @@ def add_files(files: list) -> None:
 
     tracked_files.extend(to_add)
     _update_tracked_files(tracked_files)
+
+
+def join_changes(filepath: str) -> dict:
+    """Junta todas as alterações de um arquivo"""
+
+    file_id = md5(filepath.encode()).hexdigest()
+    file_history_path = path.join(CHANGES_DIR, file_id)
+
+    with open(file_history_path, 'r') as file_r:
+        history = file_r.readlines()
+
+    joined_changes = {}
+
+    for change in history:
+        change = json.loads(b64decode(change))
+        for line, content in change['file']:
+            joined_changes[line] = content
+
+    return joined_changes
 
 
 def submit_change(files: list, comment: str) -> None:
