@@ -133,6 +133,22 @@ def join_changes(filepath: str) -> dict:
     return joined_changes
 
 
+def check_diff(joined_changes: dict, current_change: dict) -> dict:
+    """Retorna a diferença entre dois arquivos"""
+
+    diff = {}
+
+    # compara as linhas da alteração atual
+    # com a junção de todas as mudanças
+    # já feitas
+
+    for line, content in current_change.items():
+        if joined_changes[line] != content:
+            diff[line] = content
+
+    return diff
+
+
 def submit_change(files: list, comment: str) -> None:
     """Salva a alteração
     de arquivos.
