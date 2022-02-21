@@ -143,7 +143,7 @@ def submit_change(files: list, comment: str) -> None:
                 file_content = file_r.readlines()
 
             file_lines = _enumerate_lines(file_content)
-            hash_file = md5(str(file_lines))
+            hash_file = md5(str(file_lines)).hexdigest()
 
             change_info = {'author': '',
                            'author_email': '',
