@@ -133,7 +133,8 @@ def submit_change(files: list, comment: str) -> None:
         if file not in tracked_files:
             continue
 
-        file_history_path = path.join(CHANGES_DIR, md5(file))
+        hash_file_path = md5(file.encode()).hexdigest()
+        file_history_path = path.join(CHANGES_DIR, hash_file_path)
 
         # primeira mudança
         if not path.isfile(file_history_path):
@@ -153,3 +154,5 @@ def submit_change(files: list, comment: str) -> None:
 
 if __name__ == '__main__':
     init_repo()
+    add_files(['setup.py'])
+    submit_change(['setup.py'], 'init test')
