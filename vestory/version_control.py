@@ -147,8 +147,8 @@ def submit_change(files: list, comment: str) -> None:
                            'comment': comment,
                            'file': file_lines}
 
-            change_info_json = json.dumps(change_info, ensure_ascii=False)
-            change_info_base64 = b64encode(change_info_json.encode())
+            change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
+            change_info_base64 = b64encode(change_info_json).decode()
 
             _write_file(change_info_base64, file_history_path)
 
