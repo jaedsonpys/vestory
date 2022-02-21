@@ -143,8 +143,13 @@ def submit_change(files: list, comment: str) -> None:
                 file_content = file_r.readlines()
 
             file_lines = _enumerate_lines(file_content)
-            change_info = {'date': str(datetime.now()),
+            hash_file = md5(str(file_lines))
+
+            change_info = {'author': '',
+                           'author_email': '',
+                           'date': str(datetime.now()),
                            'comment': comment,
+                           'hash_file': hash_file,
                            'file': file_lines}
 
             change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
