@@ -66,6 +66,7 @@ def init_repo() -> None:
 
     # criando diretório ".vestory"
     mkdir(REPO_PATH)
+    mkdir(CHANGES_DIR)
 
     # obtendo informações
     author = input('Nome: ').strip()
