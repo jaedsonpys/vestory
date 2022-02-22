@@ -114,6 +114,22 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
+def get_changes(file_id: str) -> list:
+    """Obtém todas as alterações de um arquivo"""
+
+    file_history_path = path.join(CHANGES_DIR, file_id)
+    with open(file_history_path, 'r') as file_r:
+        file_content = file_r.readlines()
+
+    history = []
+
+    for line in file_content:
+        change_info = json.loads(b64decode(line))
+        history.append(change_info)
+
+    return history
+
+
 def join_changes(all_changes: List[dict]) -> dict:
     """Junta todas as alterações de um arquivo"""
 
