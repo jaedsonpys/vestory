@@ -127,7 +127,9 @@ def join_changes(filepath: str) -> dict:
 
     for change in history:
         change = json.loads(b64decode(change))
-        for line, content in change['file']:
+        file: dict = change['file']
+
+        for line, content in file.items():
             joined_changes[line] = content
 
     return joined_changes
