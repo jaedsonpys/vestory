@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from hashlib import md5
 from os import getcwd, mkdir, path
-from typing import Final
+from typing import Final, List
 
 LOCAL: Final = getcwd()
 
@@ -114,22 +114,13 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
-def join_changes(filepath: str) -> dict:
+def join_changes(all_changes: List[dict]) -> dict:
     """Junta todas as alterações de um arquivo"""
-
-    file_id = md5(filepath.encode()).hexdigest()
-    file_history_path = path.join(CHANGES_DIR, file_id)
-
-    with open(file_history_path, 'r') as file_r:
-        history = file_r.readlines()
 
     joined_changes = {}
 
-    for change in history:
-        change = json.loads(b64decode(change))
-        file: dict = change['file']
-
-        for line, content in file.items():
+    for change in all_changes:
+        for line, content in change.items():
             joined_changes[line] = content
 
     return joined_changes
