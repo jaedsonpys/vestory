@@ -181,21 +181,21 @@ def submit_change(files: list, comment: str) -> None:
         hash_file_path = md5(file.encode()).hexdigest()
         file_history_path = path.join(CHANGES_DIR, hash_file_path)
 
+        with open(file, 'r') as file_r:
+            file_content = file_r.readlines()
+
+        file_lines = _enumerate_lines(file_content)
+        hash_file = md5(str(file_lines)).hexdigest()
+
+        change_info = {'author': '',
+                        'author_email': '',
+                        'date': str(datetime.now()),
+                        'comment': comment,
+                        'hash_file': hash_file,
+                        'file': file_lines}
+
         # primeira mudança
         if not path.isfile(file_history_path):
-            with open(file, 'r') as file_r:
-                file_content = file_r.readlines()
-
-            file_lines = _enumerate_lines(file_content)
-            hash_file = md5(str(file_lines)).hexdigest()
-
-            change_info = {'author': '',
-                           'author_email': '',
-                           'date': str(datetime.now()),
-                           'comment': comment,
-                           'hash_file': hash_file,
-                           'file': file_lines}
-
             change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
             change_info_base64 = b64encode(change_info_json).decode()
 
