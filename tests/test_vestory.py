@@ -1,5 +1,10 @@
-from pyseqtest import SeqTest
+import os
+import sys
+
+sys.path.insert(0, './')
+
 import vestory
+from pyseqtest import SeqTest
 
 
 class TestVestory(SeqTest):
