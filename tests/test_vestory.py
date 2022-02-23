@@ -22,7 +22,11 @@ class TestVestory(SeqTest):
         super().__init__()
 
     def setup(self):
-        self.files = os.listdir('./tests/test_files')
+        self.files = []
+
+        for root, dir, files in os.walk('./tests/test_files'):
+            for file in files:
+                self.files.append(os.path.join(root, file))
 
     def test_init_repo(self):
         vestory.init_repo()
