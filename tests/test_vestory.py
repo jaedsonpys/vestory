@@ -10,6 +10,10 @@ from pyseqtest import SeqTest
 # for example:
 # 
 # python3 tests/test_vestory.py
+# 
+# A "test_files" directory must be created
+# in /tests for the correct execution of
+# the tests.#
 
 
 class TestVestory(SeqTest):
