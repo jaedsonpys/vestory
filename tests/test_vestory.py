@@ -6,6 +6,11 @@ sys.path.insert(0, './')
 import vestory
 from pyseqtest import SeqTest
 
+# The test should run in the root directory,
+# for example:
+# 
+# python3 tests/test_vestory.py
+
 
 class TestVestory(SeqTest):
     def __init__(self):
