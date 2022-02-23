@@ -5,3 +5,4 @@ build
 dist
 *.egg-info
 .vestory
+tests/test_files
