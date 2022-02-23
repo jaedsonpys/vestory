@@ -10,7 +10,18 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
 
 ### Links
 
+- [Instalação](#Instalação)
 - [Licença](#Licença)
+
+## Instalação
+
+Para instalar o **Vestory**, utilize o gerenciador de pacotes PyPi:
+
+```
+pip install vestory
+```
+
+Após isso, você poderá utilizá-lo pela linha de comando com o comando `vestory`.
 
 ## Licença
 
