@@ -1,4 +1,4 @@
-from .__main__ import main
+from .version_control import *
 
 version = ('1.0.0', 'dev')
 
