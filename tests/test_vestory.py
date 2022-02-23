@@ -20,6 +20,9 @@ class TestVestory(SeqTest):
     def __init__(self):
         super().__init__()
 
+    def setup(self):
+        self.files = os.listdir('test_files')
+
     def test_init_repo(self):
         vestory.init_repo()
 
