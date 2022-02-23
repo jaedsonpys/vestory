@@ -4,7 +4,9 @@
 ![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat)
 ![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat)
 
-**Vestory** (junção de "Version" e "History"), é um controle de versões prático via linha de comando escrito em Python.
+**Vestory** (junção de "Version" e "History"), é um controle de versões prático e rápido usado em qualquer terminal por linha de comando (**CLI**). Com comandos simples e fáceis de lembrar, facilitando o uso.
+
+O projeto tem o código-aberto com uso da licença GNU General Public License v3.0. [Leia a licença](#Licença)
 
 ### Links
 
