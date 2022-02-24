@@ -200,6 +200,7 @@ def submit_change(files: list, comment: str) -> None:
             change_info_base64 = b64encode(change_info_json).decode()
 
             _write_file(change_info_base64, file_history_path)
+            continue
 
         all_changes = get_changes(hash_file_path)
         joined_changes = join_changes(all_changes)
