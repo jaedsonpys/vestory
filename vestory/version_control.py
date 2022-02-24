@@ -55,7 +55,7 @@ def _enumerate_lines(lines: str) -> dict:
     return result
 
 
-def init_repo(author: str, author_email: str) -> None:
+def init_repo(author: str, author_email: str) -> bool:
     """Inicializa um repositório
     vazio.
 
@@ -64,8 +64,7 @@ def init_repo(author: str, author_email: str) -> None:
     """
 
     if _check_repo_exists():
-        print(f'Já existe um repositório em "{REPO_PATH}"')
-        return None
+        return False
 
     # criando diretório ".vestory"
     mkdir(REPO_PATH)
@@ -82,8 +81,8 @@ def init_repo(author: str, author_email: str) -> None:
     # salvando configurações    
     with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
-    
-    print(f'Novo repositório criado em "{REPO_PATH}".')
+
+    return True
 
 
 def add_files(files: list) -> None:
