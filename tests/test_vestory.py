@@ -4,6 +4,7 @@ import sys
 
 sys.path.insert(0, './')
 
+from hashlib import md5
 from shutil import rmtree
 
 import vestory
@@ -38,7 +39,7 @@ class TestVestory(SeqTest):
                 self.files.append(f'./tests/test_files/file-{i}')
 
     def test_init_repo(self):
-        vestory.init_repo()
+        vestory.init_repo('Jaedson', 'test@mail.com')
 
         # verify
         self.is_true(os.path.isdir('./.vestory'), 'Repo is not created')
