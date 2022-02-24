@@ -17,9 +17,12 @@ def _write_file(content: str, path: str) -> None:
         file_w.write(content)
 
 
-def _update_file(content: str, path: str) -> None:
+def _update_file(content: str, path: str, new_line: bool = False) -> None:
     with open(path, 'a') as file_w:
-        file_w.write(content)
+        if new_line:
+            file_w.write(f'\n{content}')
+        else:
+            file_w.write(content)
 
 
 def _get_files_tracked() -> list:
