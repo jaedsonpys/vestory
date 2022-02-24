@@ -55,7 +55,7 @@ def _enumerate_lines(lines: str) -> dict:
     return result
 
 
-def init_repo() -> None:
+def init_repo(author: str, author_email: str) -> None:
     """Inicializa um repositório
     vazio.
 
@@ -70,10 +70,6 @@ def init_repo() -> None:
     # criando diretório ".vestory"
     mkdir(REPO_PATH)
     mkdir(CHANGES_DIR)
-
-    # obtendo informações
-    author = input('Nome: ').strip()
-    author_email = input('Email: ').strip()
 
     init_date = str(datetime.now())
 
