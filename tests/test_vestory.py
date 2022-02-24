@@ -34,7 +34,7 @@ class TestVestory(SeqTest):
         # create tests files
         for i in range(10):
             with open(f'./tests/test_files/file-{i}', 'w') as file_w:
-                file_w.write('Welcome to my file!')
+                file_w.write('Welcome to my file!\n')
                 self.files.append(f'./tests/test_files/file-{i}')
 
     def test_init_repo(self):
@@ -67,7 +67,7 @@ class TestVestory(SeqTest):
     def test_submit_change(self):
         for file in self.files:
             with open(file, 'a') as file_u:
-                file_u.write('\nMore lines here!')
+                file_u.write('More lines here!')
 
         vestory.submit_change(self.files, 'add more lines')
 
