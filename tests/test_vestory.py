@@ -46,6 +46,15 @@ class TestVestory(SeqTest):
         tracked_files = len(vestory_config['tracking_files'])
         self.check_any_value(tracked_files, len(self.files), 'File not added')
 
+    def test_submit(self):
+        vestory.submit_change(self.files, 'first submit')
+
+        self.check_any_value(
+            len(os.listdir('./.vestory/changes/')),
+            len(self.files),
+            msg_error='Changes not found'
+        )
+
 
 if __name__ == '__main__':
     TestVestory().run()
