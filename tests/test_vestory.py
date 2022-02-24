@@ -4,6 +4,8 @@ import sys
 
 sys.path.insert(0, './')
 
+from shutil import rmtree
+
 import vestory
 from pyseqtest import SeqTest
 
@@ -24,9 +26,20 @@ class TestVestory(SeqTest):
     def setup(self):
         self.files = []
 
-        for root, dir, files in os.walk('./tests/test_files'):
-            for file in files:
-                self.files.append(os.path.join(root, file))
+        # delete .vestory dir
+        if os.path.isdir('./.vestory'):
+            rmtree('./.vestory')
+
+        if os.path.isdir('./tests/test_files'):
+            rmtree('./tests/test_files')
+
+        os.mkdir('tests/test_files')
+
+        # create tests files
+        for i in range(10):
+            with open(f'./tests/test_files/file-{i}', 'w') as file_w:
+                file_w.write('Welcome to my file!')
+                self.files.append(f'./tests/test_files/file-{i}')
 
     def test_init_repo(self):
         vestory.init_repo()
