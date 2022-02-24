@@ -55,6 +55,19 @@ class TestVestory(SeqTest):
             msg_error='Changes not found'
         )
 
+    def test_submit_change(self):
+        for file in self.files:
+            with open(file, 'a') as file_u:
+                file_u.write('\nMore lines here!')
+
+        vestory.submit_change(self.files, 'add more lines')
+
+        for file_history in os.listdir('./.vestory/changes'):
+            with open(os.path.join('./.vestory/changes', file_history)) as file_r:
+                lines_count = len(file_r.readlines())
+        
+            self.check_any_value(lines_count, 2, msg_error='Unrealized change')
+
 
 if __name__ == '__main__':
     TestVestory().run()
