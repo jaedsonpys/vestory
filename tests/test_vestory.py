@@ -78,6 +78,12 @@ class TestVestory(SeqTest):
         
             self.check_any_value(lines_count, 2, msg_error='Unrealized change')
 
+    def test_count_changes(self):
+        file_id = md5(self.files[0].encode()).hexdigest()
+
+        file_changes = vestory.get_changes(file_id)
+        self.is_true(len(file_changes) == 2, 'Number of incorrect changes')
+
 
 if __name__ == '__main__':
     TestVestory().run()
