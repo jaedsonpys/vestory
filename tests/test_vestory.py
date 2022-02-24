@@ -84,6 +84,16 @@ class TestVestory(SeqTest):
         file_changes = vestory.get_changes(file_id)
         self.is_true(len(file_changes) == 2, 'Number of incorrect changes')
 
+    def test_join_changes(self):
+        file_id = md5(self.files[0].encode()).hexdigest()
+        file_changes = vestory.get_changes(file_id)
+
+        joined_changes = vestory.join_changes(file_changes)
+        self.is_true(
+            {'0': 'Welcome to my file!\n', '1': 'More lines here!'} == joined_changes,
+            msg_error='Incorrect change join'
+        )
+
 
 if __name__ == '__main__':
     TestVestory().run()
