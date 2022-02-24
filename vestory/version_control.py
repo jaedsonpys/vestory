@@ -47,7 +47,7 @@ def _enumerate_lines(lines: str) -> dict:
     result = {}
 
     for i, line in enumerate(lines):
-        result[i] = line
+        result[str(i)] = line
 
     return result
 
@@ -136,7 +136,7 @@ def join_changes(all_changes: List[dict]) -> dict:
     joined_changes = {}
 
     for change in all_changes:
-        for line, content in change.items():
+        for line, content in change['file'].items():
             joined_changes[line] = content
 
     return joined_changes
@@ -152,7 +152,7 @@ def check_diff(joined_changes: dict, current_change: dict) -> dict:
     # já feitas
 
     for line, content in current_change.items():
-        if joined_changes[line] != content:
+        if not joined_changes.get(line) or joined_changes[line] != content:
             diff[line] = content
 
     return diff
