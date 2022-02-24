@@ -211,9 +211,3 @@ def submit_change(files: list, comment: str) -> None:
         change_info_base64 = b64encode(change_info_json).decode()
 
         _update_file(change_info_base64, file_history_path, new_line=True)
-
-
-if __name__ == '__main__':
-    init_repo()
-    add_files(['setup.py'])
-    submit_change(['setup.py'], 'init test')
