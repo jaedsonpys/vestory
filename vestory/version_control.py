@@ -206,23 +206,15 @@ def submit_change(files: list, comment: str) -> None:
                         'hash_file': hash_file,
                         'file': file_lines}
 
-        # primeira mudança
         if not path.isfile(file_history_path):
             change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
             change_info_base64 = b64encode(change_info_json).decode()
+        else:
+            all_changes = get_changes(hash_file_path)
+            joined_changes = join_changes(all_changes)
+            difference = check_diff(joined_changes, file_lines)
 
-            _write_file(change_info_base64, file_history_path)
-            _update_file_hash(file, hash_file)
-            continue
-
-        all_changes = get_changes(hash_file_path)
-        joined_changes = join_changes(all_changes)
-        difference = check_diff(joined_changes, file_lines)
-
-        change_info['file'] = difference
-
-        change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
-        change_info_base64 = b64encode(change_info_json).decode()
+            change_info['file'] = difference
 
         _update_file(change_info_base64, file_history_path, new_line=True)
         _update_file_hash(file, hash_file)
