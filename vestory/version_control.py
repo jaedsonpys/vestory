@@ -1,9 +1,11 @@
-from base64 import b64decode, b64encode
 import json
+from base64 import b64decode, b64encode
 from datetime import datetime
 from hashlib import md5
 from os import getcwd, mkdir, path
 from typing import Final, List
+
+from .exceptions import RepoNotExistsError
 
 LOCAL: Final = getcwd()
 
@@ -105,8 +107,7 @@ def add_files(files: list) -> None:
     """
 
     if not _check_repo_exists():
-        print('error: nenhum repositório .vestory encontrado')
-        return None
+        raise RepoNotExistsError('Repositório não encontrado')
     
     tracked_files = _get_files_tracked()
     to_add = dict()
@@ -179,9 +180,7 @@ def submit_change(files: list, comment: str) -> None:
     """
 
     if not _check_repo_exists():
-        print('Impossível adicionar arquivos.')
-        print('\033[31mNenhum repositório encontrado\033[m')
-        return None
+        raise RepoNotExistsError('Repositório não encontrado')
 
     tracked_files = _get_files_tracked()
 
