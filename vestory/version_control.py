@@ -212,6 +212,7 @@ def submit_change(files: list, comment: str) -> None:
             change_info_base64 = b64encode(change_info_json).decode()
 
             _write_file(change_info_base64, file_history_path)
+            _update_file_hash(file, hash_file)
             continue
 
         all_changes = get_changes(hash_file_path)
@@ -224,3 +225,4 @@ def submit_change(files: list, comment: str) -> None:
         change_info_base64 = b64encode(change_info_json).decode()
 
         _update_file(change_info_base64, file_history_path, new_line=True)
+        _update_file_hash(file, hash_file)
