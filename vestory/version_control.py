@@ -68,6 +68,28 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
         json.dump(vestory_config, file_w, indent=4)
 
 
+def check_file_has_changed(filename: str) -> bool:
+    """Checa se o arquivo foi alterado"""
+
+    if not _check_repo_exists():
+        raise RepoNotExistsError('Repositório não encontrado')
+
+    tracked_files = _get_files_tracked()
+
+    if filename in tracked_files:
+        with open(filename, 'rb') as file_r:
+            hash_content = md5(file_r.read()).hexdigest()
+
+        previous_hash = tracked_files.get(filename)
+        
+        if hash_content != previous_hash:
+            return True
+        else:
+            return False
+
+    return False
+
+
 def init_repo(author: str, author_email: str) -> bool:
     """Inicializa um repositório
     vazio.
