@@ -55,6 +55,17 @@ def _enumerate_lines(lines: str) -> dict:
     return result
 
 
+def _update_file_hash(filename: str, new_hash: str) -> None:
+    with open(CONFIG_FILE, 'r') as file_r:
+        vestory_config = json.load(file_r)
+
+    tracked_files = vestory_config['tracking_files']
+    tracked_files[filename] = new_hash
+
+    with open(CONFIG_FILE, 'w') as file_w:
+        json.dump(vestory_config, file_w, indent=4)
+
+
 def init_repo(author: str, author_email: str) -> bool:
     """Inicializa um repositório
     vazio.
