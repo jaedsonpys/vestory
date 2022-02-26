@@ -22,7 +22,7 @@ def _write_file(content: str, path: str) -> None:
 def _update_file(content: str, path: str, new_line: bool = False) -> None:
     with open(path, 'a') as file_w:
         if new_line:
-            file_w.write(f'\n{content}')
+            file_w.write(f'{content}\n')
         else:
             file_w.write(content)
 
@@ -61,8 +61,7 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
-    tracked_files = vestory_config['tracking_files']
-    tracked_files[filename] = new_hash
+    vestory_config['tracking_files'][filename] = new_hash
 
     with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
@@ -77,8 +76,11 @@ def check_file_has_changed(filename: str) -> bool:
     tracked_files = _get_files_tracked()
 
     if filename in tracked_files:
-        with open(filename, 'rb') as file_r:
-            hash_content = md5(file_r.read()).hexdigest()
+        with open(filename, 'r') as file_r:
+            file_lines = file_r.readlines()
+
+            enum_lines = str(_enumerate_lines(file_lines))
+            hash_content = md5(enum_lines.encode()).hexdigest()
 
         previous_hash = tracked_files.get(filename)
         
@@ -227,15 +229,15 @@ def submit_change(files: list, comment: str) -> None:
                         'hash_file': hash_file,
                         'file': file_lines}
 
-        if not path.isfile(file_history_path):
-            change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
-            change_info_base64 = b64encode(change_info_json).decode()
-        else:
+        if path.isfile(file_history_path):
             all_changes = get_changes(hash_file_path)
             joined_changes = join_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
 
             change_info['file'] = difference
+
+        change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
+        change_info_base64 = b64encode(change_info_json).decode()
 
         _update_file(change_info_base64, file_history_path, new_line=True)
         _update_file_hash(file, hash_file)
