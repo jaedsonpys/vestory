@@ -94,8 +94,7 @@ def add_files(files: list) -> None:
     """
 
     if not _check_repo_exists():
-        print('Impossível adicionar arquivos.')
-        print('\033[31mNenhum repositório encontrado\033[m')
+        print('error: nenhum repositório .vestory encontrado')
         return None
     
     tracked_files = _get_files_tracked()
@@ -106,7 +105,7 @@ def add_files(files: list) -> None:
             if path.isfile(file):
                 to_add.append(file)
             else:
-                print(f'\033[31m"{file}" não encontrado\033[m')
+                print(f'error: "{file}" não encontrado')
 
     tracked_files.extend(to_add)
     _update_tracked_files(tracked_files)
