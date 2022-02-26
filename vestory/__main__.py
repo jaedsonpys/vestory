@@ -25,6 +25,9 @@ def main():
             return None
         
         print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
+    elif args.add:
+        to_add = args.add
+        add_files(to_add)
 
 
 main()
