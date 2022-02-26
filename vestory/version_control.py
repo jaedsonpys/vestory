@@ -103,7 +103,11 @@ def add_files(files: list) -> None:
     for file in files:
         if file not in tracked_files:
             if path.isfile(file):
-                to_add.append(file)
+                with open(file, 'rb') as file_r:
+                    file_content = file_r.read()
+
+                content_hash = md5(file_content).hexdigest()
+                to_add.append((file, content_hash))
             else:
                 print(f'error: "{file}" não encontrado')
 
