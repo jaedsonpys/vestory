@@ -25,14 +25,14 @@ def _update_file(content: str, path: str, new_line: bool = False) -> None:
             file_w.write(content)
 
 
-def _get_files_tracked() -> list:
+def _get_files_tracked() -> dict:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     return vestory_config['tracking_files']
 
 
-def _update_tracked_files(files: list) -> None:
+def _update_tracked_files(files: dict) -> None:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
@@ -76,7 +76,7 @@ def init_repo(author: str, author_email: str) -> bool:
     vestory_config = {'author': author,
                       'author_email': author_email,
                       'init_date': init_date,
-                      'tracking_files': list()}
+                      'tracking_files': dict()}
 
     # salvando configurações    
     with open(CONFIG_FILE, 'w') as file_w:
@@ -98,7 +98,7 @@ def add_files(files: list) -> None:
         return None
     
     tracked_files = _get_files_tracked()
-    to_add = list()
+    to_add = dict()
 
     for file in files:
         if file not in tracked_files:
@@ -107,11 +107,11 @@ def add_files(files: list) -> None:
                     file_content = file_r.read()
 
                 content_hash = md5(file_content).hexdigest()
-                to_add.append((file, content_hash))
+                to_add[file] = content_hash
             else:
                 print(f'error: "{file}" não encontrado')
 
-    tracked_files.extend(to_add)
+    tracked_files.update(to_add)
     _update_tracked_files(tracked_files)
 
 
