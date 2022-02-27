@@ -95,6 +95,20 @@ def check_file_has_changed(filename: str) -> bool:
     return False
 
 
+def get_files_changed() -> list:
+    """Retorna quais arquivos foram alterados"""
+
+    tracked_files = _get_files_tracked()
+    changed_files = []
+
+    for filepath in tracked_files.keys():
+        has_changed = check_file_has_changed(filepath)
+        if has_changed:
+            changed_files.append(filepath)
+
+    return changed_files
+
+
 def init_repo(author: str, author_email: str) -> bool:
     """Inicializa um repositório
     vazio.
