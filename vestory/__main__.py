@@ -47,7 +47,7 @@ def main():
             files_to_add = args.add
 
         add_files(files_to_add)
-    elif args.submit:
+    elif args.submit is not None:
         comment = args.c
 
         if args.a:
