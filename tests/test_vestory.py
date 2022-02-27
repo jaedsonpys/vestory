@@ -79,6 +79,10 @@ class TestVestory(SeqTest):
         for file in self.files:
             self.is_true(vestory.check_file_has_changed(file), 'Change not detected')
 
+    def test_get_files_changed(self):
+        changed_files = vestory.get_files_changed()
+        self.is_true(len(changed_files) == 10, 'Error getting files changed')
+
     def test_submit_change(self):
         vestory.submit_change(self.files, 'add more lines')
 
