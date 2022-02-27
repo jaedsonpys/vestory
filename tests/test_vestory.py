@@ -103,6 +103,10 @@ class TestVestory(SeqTest):
             msg_error='Incorrect change join'
         )
 
+    def test_get_all_changes(self):
+        changes = vestory.get_all_changes()
+        self.is_true(len(changes.keys()) == 10, 'Some changes are missing')
+
 
 if __name__ == '__main__':
     TestVestory().run()
