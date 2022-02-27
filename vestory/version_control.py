@@ -230,6 +230,7 @@ def submit_change(files: list, comment: str) -> None:
         raise RepoNotExistsError('Repositório não encontrado')
 
     tracked_files = _get_files_tracked()
+    author, author_email = get_author_info()
 
     for file in files:
         # ignorando arquivo não rastreado
@@ -245,8 +246,8 @@ def submit_change(files: list, comment: str) -> None:
         file_lines = _enumerate_lines(file_content)
         hash_file = md5(str(file_lines).encode()).hexdigest()
 
-        change_info = {'author': '',
-                        'author_email': '',
+        change_info = {'author': author,
+                        'author_email': author_email,
                         'date': str(datetime.now()),
                         'comment': comment,
                         'hash_file': hash_file,
