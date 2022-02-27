@@ -4,7 +4,8 @@ from argeasy import ArgEasy
 from .version_control import (
     add_files,
     init_repo,
-    submit_change
+    submit_change,
+    get_all_changes
 )
 
 EXEC_PATH = os.getcwd()
@@ -21,6 +22,9 @@ def main():
     # submit change
     parser.add_argument('submit', 'Submit changes', 'append')
     parser.add_flag('-c', 'Comment the change') 
+
+    # log
+    parser.add_argument('log', 'View history of changes', 'store_true')
 
     args = parser.get_args()
 
@@ -64,6 +68,22 @@ def main():
             return None
 
         submit_change(files_to_submit, comment)
+    elif args.log:
+        history = get_all_changes()
+        print('All changes:\n')
 
+        for file_id, changes in history.items():
+            for change in changes:
+                date = change.get('date')
+                comment = change.get('comment')
 
-main()
+                author = change.get('author')
+                author_email = change.get('author_email')
+
+                hash_file = change.get('hash_file')
+
+                print(f'\033[33m{date} - {hash_file}\033[m')
+                print(f'Author: {author} ({author_email})')
+                print(f'Comment: {comment}\n')
+
+    return None
