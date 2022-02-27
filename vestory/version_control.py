@@ -48,10 +48,12 @@ def _check_repo_exists() -> bool:
     return path.isdir(REPO_PATH)
 
 
-def _enumerate_lines(lines: str) -> dict:
+def _enumerate_lines(lines: list) -> dict:
     result = {}
 
     for i, line in enumerate(lines):
+        if isinstance(line, bytes):
+            line = line.decode()
         result[str(i)] = line
 
     return result
@@ -216,7 +218,7 @@ def submit_change(files: list, comment: str) -> None:
         hash_file_path = md5(file.encode()).hexdigest()
         file_history_path = path.join(CHANGES_DIR, hash_file_path)
 
-        with open(file, 'r') as file_r:
+        with open(file, 'rb') as file_r:
             file_content = file_r.readlines()
 
         file_lines = _enumerate_lines(file_content)
