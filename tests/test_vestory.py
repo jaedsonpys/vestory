@@ -46,6 +46,11 @@ class TestVestory(SeqTest):
         self.is_true(os.path.isdir('./.vestory/changes'), 'Diretory "changes" not found')
         self.is_true(os.path.isfile('./.vestory/vestory.config.json'), 'Config file not found')
 
+    def test_get_author(self):
+        author, author_email = vestory.get_author_info()
+        self.is_true(author == 'Jaedson', 'Author incorrect')
+        self.is_true(author_email == 'test@mail.com', 'Author email incorrect')
+
     def test_add_files(self):
         vestory.add_files(self.files)
 
