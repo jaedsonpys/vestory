@@ -55,7 +55,7 @@ def main():
 
             for root, dir, files in os.walk('./'):
                 for file in files:
-                    files_to_add.append(os.path.join(root, file))
+                    files_to_submit.append(os.path.join(root, file))
         else:
             files_to_submit = args.submit
 
