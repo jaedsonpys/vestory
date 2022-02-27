@@ -12,7 +12,7 @@ def main():
 
     # add argument
     parser.add_argument('add', 'Add files to tracking', action='append')
-    parser.add_argument('-a', 'Select all files', action='store_true')    
+    parser.add_flag('-a', 'Select all files', action='store_true')    
 
     args = parser.get_args()
 
@@ -28,6 +28,17 @@ def main():
             return None
         
         print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
+    elif args.add is not None:
+        if args.a:
+            files_to_add = []
+
+            for root, dir, files in os.walk('./'):
+                for file in files:
+                    files_to_add.append(os.path.join(root, file))
+        else:
+            files_to_add = args.add
+
+        add_files(files_to_add)
 
 
 main()
