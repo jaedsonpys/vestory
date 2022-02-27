@@ -90,12 +90,12 @@ class TestVestory(SeqTest):
     def test_count_changes(self):
         file_id = md5(self.files[0].encode()).hexdigest()
 
-        file_changes = vestory.get_changes(file_id)
+        file_changes = vestory.get_file_changes(file_id)
         self.is_true(len(file_changes) == 2, 'Number of incorrect changes')
 
     def test_join_changes(self):
         file_id = md5(self.files[0].encode()).hexdigest()
-        file_changes = vestory.get_changes(file_id)
+        file_changes = vestory.get_file_changes(file_id)
 
         joined_changes = vestory.join_changes(file_changes)
         self.is_true(

@@ -153,7 +153,7 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
-def get_changes(file_id: str) -> list:
+def get_file_changes(file_id: str) -> list:
     """Obtém todas as alterações de um arquivo"""
 
     file_history_path = path.join(CHANGES_DIR, file_id)
@@ -232,7 +232,7 @@ def submit_change(files: list, comment: str) -> None:
                         'file': file_lines}
 
         if path.isfile(file_history_path):
-            all_changes = get_changes(hash_file_path)
+            all_changes = get_file_changes(hash_file_path)
             joined_changes = join_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
 
