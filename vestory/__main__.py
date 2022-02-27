@@ -3,6 +3,7 @@ from argeasy import ArgEasy
 
 from .version_control import (
     add_files,
+    get_files_changed,
     init_repo,
     submit_change,
     get_all_changes
@@ -25,6 +26,7 @@ def main():
 
     # log
     parser.add_argument('log', 'View history of changes', 'store_true')
+    parser.add_argument('status', 'View status of files', 'store_true')
 
     args = parser.get_args()
 
@@ -83,5 +85,17 @@ def main():
                 print(f'\033[33m{date} - {hash_file}\033[m')
                 print(f'Author: {author} ({author_email})')
                 print(f'Comment: {comment}\n')
+    elif args.status:
+        changed_files = get_files_changed()
+
+        if not changed_files:
+            print('\033[32mno changes detected\033[m')
+        else:
+            print('files to submit:')
+            for file in changed_files:
+                print(f'\033[31m    changed: {file}\033[m')
+
+        print('\nuse "vestory submit -a" to submit changes.')
+        print('to add files, use "vestory add".')
 
     return None
