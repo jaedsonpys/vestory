@@ -1,5 +1,5 @@
 import os
-from argparse import ArgumentParser
+from argeasy import ArgEasy
 
 from version_control import add_files, init_repo
 
@@ -7,13 +7,16 @@ EXEC_PATH = os.getcwd()
 
 
 def main():
-    parser = ArgumentParser()
-    parser.add_argument('add', nargs='*', action='append')
-    parser.add_argument('-i', action='store_true')  # -i is used to init repo
+    parser = ArgEasy()
+    parser.add_argument('init', 'Init a repo', action='store_true')
 
-    args = parser.parse_args()
-    
-    if args.i:
+    # add argument
+    parser.add_argument('add', 'Add files to tracking', action='append')
+    parser.add_argument('-a', 'Select all files', action='store_true')    
+
+    args = parser.get_args()
+
+    if args.init:
         # test informations
         name = 'Elliot'
         email = 'elliot@protonmail.com'
@@ -25,9 +28,6 @@ def main():
             return None
         
         print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
-    elif args.add:
-        to_add = args.add
-        add_files(to_add)
 
 
 main()
