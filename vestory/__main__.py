@@ -1,7 +1,7 @@
 import os
 from argeasy import ArgEasy
 
-from version_control import (
+from .version_control import (
     add_files,
     init_repo,
     submit_change
