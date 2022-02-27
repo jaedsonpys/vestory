@@ -70,8 +70,6 @@ def main():
         submit_change(files_to_submit, comment)
     elif args.log:
         history = get_all_changes()
-        print('All changes:\n')
-
         for file_id, changes in history.items():
             for change in changes:
                 date = change.get('date')
