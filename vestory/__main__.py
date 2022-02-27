@@ -1,7 +1,11 @@
 import os
 from argeasy import ArgEasy
 
-from version_control import add_files, init_repo
+from version_control import (
+    add_files,
+    init_repo,
+    submit_change
+)
 
 EXEC_PATH = os.getcwd()
 
@@ -12,7 +16,11 @@ def main():
 
     # add argument
     parser.add_argument('add', 'Add files to tracking', action='append')
-    parser.add_flag('-a', 'Select all files', action='store_true')    
+    parser.add_flag('-a', 'Select all files', action='store_true')
+
+    # submit change
+    parser.add_argument('submit', 'Submit changes', 'append')
+    parser.add_flag('-c', 'Comment the change') 
 
     args = parser.get_args()
 
@@ -39,6 +47,23 @@ def main():
             files_to_add = args.add
 
         add_files(files_to_add)
+    elif args.submit:
+        comment = args.c
+
+        if args.a:
+            files_to_submit = []
+
+            for root, dir, files in os.walk('./'):
+                for file in files:
+                    files_to_add.append(os.path.join(root, file))
+        else:
+            files_to_submit = args.submit
+
+        if not comment:
+            print('error: a comment on the change is required. Use "-c."')
+            return None
+
+        submit_change(files_to_submit, comment)
 
 
 main()
