@@ -3,6 +3,7 @@ from base64 import b64decode, b64encode
 from datetime import datetime
 from hashlib import md5
 from os import getcwd, mkdir, path
+import os
 from typing import Final, List
 
 from .exceptions import RepoNotExistsError
@@ -165,6 +166,19 @@ def get_file_changes(file_id: str) -> list:
     for line in file_content:
         change_info = json.loads(b64decode(line))
         history.append(change_info)
+
+    return history
+
+
+def get_all_changes() -> dict:
+    """Obtém todas as alterações"""
+
+    files_history = os.listdir(CHANGES_DIR)
+    history = {}
+
+    for file_id in files_history:
+        changes = get_file_changes(file_id)
+        history[file_id] = changes
 
     return history
 
