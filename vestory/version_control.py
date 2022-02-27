@@ -154,6 +154,13 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
+def get_author_info() -> tuple:
+    with open(CONFIG_FILE, 'r') as file_r:
+        config = json.load(file_r)
+
+    return (config['author'], config['author_email'])
+
+
 def get_file_changes(file_id: str) -> list:
     """Obtém todas as alterações de um arquivo"""
 
