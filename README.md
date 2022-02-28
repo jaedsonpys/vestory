@@ -24,7 +24,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
 
 ## Versão 1.0.0
 
-Esta versão do Vestory possui:
+Esta versão do Vestory pode:
 
 - [x] Monitorar alterações de arquivos;
 - [x] Salvar alterações de arquivos;
