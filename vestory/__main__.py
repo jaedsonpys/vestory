@@ -22,11 +22,10 @@ def main():
     parser.add_argument('submit', 'Submit changes', 'append')
     parser.add_argument('log', 'View history of changes', 'store_true')
     parser.add_argument('status', 'View status of files', 'store_true')
-    parser.add_argument('join', 'Join changes of files', action='append')
+    parser.add_argument('join', 'Join changes of files', action='store_true')
 
     parser.add_flag('-a', 'Select all files', action='store_true')
     parser.add_flag('-c', 'Comment the change')
-    parser.add_flag('-ac', 'Junction of flags "-a" and "-c"')
 
     args = parser.get_args()
 
@@ -104,7 +103,7 @@ def main():
 
         print('\nuse "vestory submit -a" to submit changes.')
         print('to add files, use "vestory add".')
-    elif args.join is not None:
+    elif args.join:
         print('\033[33mwarning: the "join" command will'
               'replace the current files.\033[m\n')
 
