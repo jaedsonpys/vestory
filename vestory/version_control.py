@@ -212,6 +212,16 @@ def join_file_changes(file_changes: List[dict]) -> dict:
     return joined_changes
 
 
+def join_changes() -> dict:
+    history = get_all_changes()
+    joined_changes = {}
+
+    for file_id, changes in history.items():
+        joined_changes[file_id] = join_file_changes(changes)
+
+    return joined_changes
+
+
 def check_diff(joined_changes: dict, current_change: dict) -> dict:
     """Retorna a diferença entre dois arquivos"""
 
