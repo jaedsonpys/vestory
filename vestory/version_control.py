@@ -189,11 +189,8 @@ def get_filepath_by_id(file_id: str) -> str:
 def get_file_changes(filepath: str) -> list:
     """Obtém todas as alterações de um arquivo"""
 
-    with open(CONFIG_FILE, 'r') as file_r:
-        vestory_config = json.load(file_r)
-
     file_changes = []
-    changes = vestory_config.get('changes')
+    changes = get_changes()
     
     for change_id, info in changes:
         if info['filepath'] == filepath:
