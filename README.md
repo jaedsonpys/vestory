@@ -11,6 +11,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
 
 ### Links
 
+- [Versão 1.0.0](#Versão-1.0.0)
 - [Instalação](#Instalação)
 - [Como funciona](#Como-funciona)
 - [Utilizando o Vestory](#Utilizando-o-Vestory)
