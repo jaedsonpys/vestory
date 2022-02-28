@@ -282,14 +282,9 @@ def submit_change(files: list, comment: str) -> None:
     if not _check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
 
-    tracked_files = get_files_tracked()
     author, author_email = get_author_info()
 
     for filepath in files:
-        # ignorando arquivo não rastreado
-        if filepath not in tracked_files:
-            continue
-
         with open(filepath, 'rb') as file_r:
             file_content = file_r.readlines()
 
