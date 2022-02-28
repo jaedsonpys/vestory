@@ -70,8 +70,9 @@ def main():
                 files_to_submit = []
 
                 for root, dir, files in os.walk('./'):
-                    for file in files:
-                        files_to_submit.append(os.path.join(root, file))
+                    if '.vestory/' not in root:
+                        for file in files:
+                            files_to_submit.append(os.path.join(root, file))
             else:
                 files_to_submit = args.submit
 
