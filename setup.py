@@ -8,5 +8,10 @@ setup(
         'console_scripts': [
             'vestory = vestory.__main__:main'
         ]
-    }
+    },
+    project_urls={
+        'Código fonte': 'https://github.com/jaedsonpys/vestory',
+        'Licença': 'https://github.com/jaedsonpys/vestory/blob/master/LICENSE'
+    },
+    license='GNU General Public License v3.0'
 )
