@@ -92,6 +92,11 @@ class TestVestory(SeqTest):
         
             self.check_any_value(lines_count, 2, msg_error='Unrealized change')
 
+    def test_get_filepath_by_id(self):
+        file_id = md5(self.files[0].encode()).hexdigest()
+        filepath = vestory.get_filepath_by_id(file_id)
+        self.is_true(filepath == self.files[0], 'Incorrect file path')
+
     def test_check_file_has_changed_2(self):
         for file in self.files:
             self.is_false(vestory.check_file_has_changed(file), 'Change detected')

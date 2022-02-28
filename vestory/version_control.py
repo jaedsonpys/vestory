@@ -170,6 +170,12 @@ def get_author_info() -> tuple:
     return (config['author'], config['author_email'])
 
 
+def get_filepath_by_id(file_id: str) -> str:
+    last_change = get_file_changes(file_id)[-1]
+    filepath = last_change['filepath']
+    return filepath
+
+
 def get_file_changes(file_id: str) -> list:
     """Obtém todas as alterações de um arquivo"""
 
