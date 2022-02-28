@@ -206,7 +206,7 @@ def join_file_changes(file_changes: List[dict]) -> dict:
     joined_changes = {}
 
     for change in file_changes:
-        for line, content in change['file'].items():
+        for line, content in change['change'].items():
             joined_changes[line] = content
 
     return joined_changes
@@ -272,7 +272,7 @@ def submit_change(files: list, comment: str) -> None:
             'date': str(datetime.now()),
             'comment': comment,
             'hash_file': hash_file,
-            'file': file_lines,
+            'change': file_lines,
             'filepath': filepath
         }
 
@@ -281,7 +281,7 @@ def submit_change(files: list, comment: str) -> None:
             joined_changes = join_file_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
 
-            change_info['file'] = difference
+            change_info['change'] = difference
 
         change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
         change_info_base64 = b64encode(change_info_json).decode()
