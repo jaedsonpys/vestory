@@ -1,6 +1,8 @@
 from setuptools import setup
 
 setup(
+    author='Jaedson Silva',
+    author_email='imunknowuser@protonmail.com',
     name='vestory',
     version='1.0.0',
     packages=['vestory'],
