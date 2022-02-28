@@ -202,18 +202,14 @@ def get_file_changes(filepath: str) -> list:
     return file_changes
 
 
-def get_all_changes() -> dict:
+def get_changes() -> dict:
     """Obtém todas as alterações"""
 
-    files_history = os.listdir(CHANGES_DIR)
-    history = {}
+    with open(CONFIG_FILE, 'r') as file_r:
+        vestory_config = json.load(file_r)
 
-    for file_id in files_history:
-        changes = get_file_changes(file_id)
-        changes.reverse()
-        history[file_id] = changes
-
-    return history
+    changes = vestory_config.get('changes')
+    return changes
 
 
 def join_file_changes(file_changes: List[dict]) -> dict:
