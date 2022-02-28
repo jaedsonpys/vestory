@@ -213,6 +213,9 @@ def join_file_changes(file_changes: List[dict]) -> dict:
 
 
 def join_changes() -> dict:
+    """Retorna a junção de todas as alterações
+    de todos os arquivos."""
+
     history = get_all_changes()
     joined_changes = {}
 
