@@ -200,12 +200,12 @@ def get_all_changes() -> dict:
     return history
 
 
-def join_changes(all_changes: List[dict]) -> dict:
+def join_file_changes(file_changes: List[dict]) -> dict:
     """Junta todas as alterações de um arquivo"""
 
     joined_changes = {}
 
-    for change in all_changes:
+    for change in file_changes:
         for line, content in change['file'].items():
             joined_changes[line] = content
 
@@ -265,7 +265,7 @@ def submit_change(files: list, comment: str) -> None:
 
         if path.isfile(file_history_path):
             all_changes = get_file_changes(hash_file_path)
-            joined_changes = join_changes(all_changes)
+            joined_changes = join_file_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
 
             change_info['file'] = difference
