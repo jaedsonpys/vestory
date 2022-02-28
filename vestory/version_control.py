@@ -233,30 +233,14 @@ def _add_new_change(
 def join_file_changes(changes: list) -> dict:
     """Junta todas as alterações de um arquivo"""
 
-    joined_changes = {}
-
-    for change_id in changes.values():
-        change_filepath = os.path.join(CHANGES_DIR, change_id)
-        with open(change_filepath, 'r') as file_r:
-            changed_lines = json.loads(b64decode(file_r.read()))
-
-        for line, content in changed_lines.items():
-            joined_changes[line] = content
-
-    return joined_changes
+    pass
 
 
 def join_changes() -> dict:
     """Retorna a junção de todas as alterações
     de todos os arquivos."""
 
-    history = get_all_changes()
-    joined_changes = {}
-
-    for file_id, changes in history.items():
-        joined_changes[file_id] = join_file_changes(changes)
-
-    return joined_changes
+    pass
 
 
 def check_diff(joined_changes: dict, current_change: dict) -> dict:
@@ -287,30 +271,39 @@ def submit_change(files: list, comment: str) -> None:
         raise RepoNotExistsError('Repositório não encontrado')
 
     author, author_email = get_author_info()
+    change_id = _generate_id()
+    change_dirpath = path.join(CHANGES_DIR, change_id)
+    changed_files = {}
+
+    mkdir(change_dirpath)
+
+    change_info = {
+        'author': author,
+        'author_email': author_email,
+        'date': str(datetime.now()),
+        'comment': comment,
+        'changed_files': dict()
+    }
 
     for filepath in files:
         with open(filepath, 'rb') as file_r:
             file_content = file_r.readlines()
 
-        change_id = _generate_id()
-        change_path = path.join(CHANGES_DIR, change_id)
+        file_id = _generate_id()
         file_lines = json.dumps(_enumerate_lines(file_content))
         hash_lines = md5(file_lines.encode()).hexdigest()
 
-        change_info = {
-            'author': author,
-            'author_email': author_email,
-            'date': str(datetime.now()),
-            'comment': comment,
-            'hash_lines': hash_lines,
-            'filepath': filepath
+        changed_files[filepath] = {
+            'file_id': file_id,
+            'hash': hash_lines
         }
 
-        all_changes = get_file_changes(change_path)
+        all_changes = get_file_changes(filepath)
 
         if all_changes:
             joined_changes = join_file_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
             change_info['change'] = difference
 
-        _add_new_change(change_id, change_info, file_lines)
+    change_info['changed_files'] = changed_files
+    _add_new_change(change_id, change_info, file_lines)
