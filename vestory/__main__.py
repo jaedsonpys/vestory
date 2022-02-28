@@ -14,6 +14,11 @@ from .version_control import (
 EXEC_PATH = os.getcwd()
 
 
+def write_file(filepath: str, content: str) -> None:
+    with open(filepath, 'w') as file_w:
+        file_w.write(content)
+
+
 def main():
     parser = ArgEasy()
 
@@ -122,14 +127,8 @@ def main():
 
         for file_id, content in joined_changes.items():
             filepath = get_filepath_by_id(file_id)
-            file_lines = []
-
-            for line in content.values():
-                file_lines.append(line)
-
-            with open(filepath, 'w') as file_w:
-                file_w.write(''.join(file_lines))
-
+            file_lines = [line for line in content.values()]
+            write_file(filepath, ''.join(file_lines))
             print(f'\033[32mfile "{filepath}" successfully completed\033[m')
     
         print('\nDone.')
