@@ -15,11 +15,6 @@ CHANGES_DIR: Final = path.join(REPO_PATH, 'changes')
 CONFIG_FILE: Final = path.join(REPO_PATH, 'vestory.config.json')
 
 
-def _write_file(content: str, path: str) -> None:
-    with open(path, 'w') as file_w:
-        file_w.write(content)
-
-
 def _update_file(content: str, path: str, new_line: bool = False) -> None:
     with open(path, 'a') as file_w:
         if new_line:
