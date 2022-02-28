@@ -264,10 +264,7 @@ def submit_change(files: list, comment: str) -> None:
 
     author, author_email = get_author_info()
     change_id = _generate_id()
-    change_dirpath = path.join(CHANGES_DIR, change_id)
     changed_files = {}
-
-    mkdir(change_dirpath)
 
     change_info = {
         'author': author,
@@ -283,19 +280,23 @@ def submit_change(files: list, comment: str) -> None:
 
         file_id = _generate_id()
         file_lines = json.dumps(_enumerate_lines(file_content))
+        file_lines_b64 = b64encode(file_lines.encode()).decode()
         hash_lines = md5(file_lines.encode()).hexdigest()
 
         changed_files[filepath] = {
             'file_id': file_id,
-            'hash': hash_lines
+            'hash': hash_lines,
+            'content': file_lines_b64
         }
 
         all_changes = get_file_changes(filepath)
 
         if all_changes:
             joined_changes = join_file_changes(all_changes)
+
             difference = check_diff(joined_changes, file_lines)
-            change_info['change'] = difference
+            b64_difference = b64encode(json.dumps(difference)).decode()
+            change_info['change'] = b64_difference
 
     change_info['changed_files'] = changed_files
-    _add_new_change(change_id, change_info, file_lines)
+    _add_new_change(change_id, change_info)
