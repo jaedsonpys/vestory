@@ -19,6 +19,21 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Submeter alterações](#Submeter-alterações)
 - [Licença](#Licença)
 
+## Versão 1.0.0
+
+Esta versão do Vestory possui:
+
+- [x] Monitorar alterações de arquivos;
+- [x] Salvar alterações de arquivos;
+- [x] Ver logs de alterações;
+- [x] Juntar alterações do arquivo.
+
+Na próxima versão, será possível:
+
+- [ ] Voltar na linha do tempo dos arquivos;
+- [ ] Suporte a arquivos de: fotos, vídeos, executáveis, etc;
+- [ ] Ver a diferença de uma alteração.
+
 ## Instalação
 
 Para instalar o **Vestory**, utilize o gerenciador de pacotes PyPi:
