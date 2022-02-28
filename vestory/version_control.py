@@ -194,6 +194,7 @@ def get_all_changes() -> dict:
 
     for file_id in files_history:
         changes = get_file_changes(file_id)
+        changes.reverse()
         history[file_id] = changes
 
     return history
