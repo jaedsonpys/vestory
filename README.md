@@ -88,6 +88,22 @@ Você pode submeter as alterações de todos os arquivos monitorados e adicionar
 vestory submit -ac 'first changes'
 ```
 
+### Ver log de alterações
+
+Para ver todas as alterações que foram realizadas, utilize o argumento `log`:
+
+```
+vestory log
+```
+
+Será apresentado as seguintes informações:
+
+- Nome do autor
+- Email do autor
+- Data da alteração
+- Hash MD5 da alteração
+- Comentário sobre a alteração
+
 ## Licença
 
 GNU GENERAL PUBLIC LICENSE
