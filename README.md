@@ -18,6 +18,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Inicializando repositório](#Inicializando-repositório)
     - [Adicionar arquivos](#Adicionar-arquivos)
     - [Submeter alterações](#Submeter-alterações)
+    - [Juntar alterações](#Juntar-alterações)
     - [Ver log de alterações](#Ver-log-de-alterações)
     - [Status dos arquivos](#Status-dos-arquivos)
 - [Licença](#Licença)
@@ -106,6 +107,29 @@ Você pode submeter as alterações de todos os arquivos monitorados e adicionar
 ```
 vestory submit -ac 'first changes'
 ```
+
+### Juntar alterações
+
+Com o argumento `join`, você irá juntar todas as alterações de um arquivo em um único arquivo, substituindo o arquivo original. Veja o uso deste argumento:
+
+```
+vestory join -a
+```
+
+Este comando irá fazer com que todos os arquivos que estão sendo rastreados juntem suas alterações. Também é possível juntar as alterações de apenas um arquivo:
+
+```
+vestory join test.txt
+```
+
+Observe que, aparecerá uma mensagem de aviso antes do processo ser realizado:
+
+```
+warning: the "join" command will replace the current files.
+> Do you wish to proceed? [y/n] 
+```
+
+Confirmando, o processo será realizado.
 
 ### Ver log de alterações
 
