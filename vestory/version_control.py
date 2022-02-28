@@ -276,30 +276,29 @@ def submit_change(files: list, comment: str) -> None:
         if filepath not in tracked_files:
             continue
 
-        hash_file_path = md5(filepath.encode()).hexdigest()
-        file_history_path = path.join(CHANGES_DIR, hash_file_path)
-
         with open(filepath, 'rb') as file_r:
             file_content = file_r.readlines()
 
+        change_id = _generate_id()
+        change_path = path.join(CHANGES_DIR, change_id)
         file_lines = _enumerate_lines(file_content)
-        hash_file = md5(str(file_lines).encode()).hexdigest()
+        hash_lines = md5(str(file_lines).encode()).hexdigest()
 
         change_info = {
             'author': author,
             'author_email': author_email,
             'date': str(datetime.now()),
             'comment': comment,
-            'hash_file': hash_file,
+            'hash_lines': hash_lines,
             'change': file_lines,
             'filepath': filepath
         }
 
-        if path.isfile(file_history_path):
-            all_changes = get_file_changes(hash_file_path)
+        all_changes = get_file_changes(change_path)
+
+        if all_changes:
             joined_changes = join_file_changes(all_changes)
             difference = check_diff(joined_changes, file_lines)
-
             change_info['change'] = difference
 
         change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
