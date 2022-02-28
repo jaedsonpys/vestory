@@ -209,6 +209,18 @@ def get_changes() -> dict:
     return changes
 
 
+def _add_new_change(change_id: str, change_info: dict) -> None:
+    changes = get_changes()
+    changes[change_id] = change_info
+
+    with open(CONFIG_FILE, 'r') as file_r:
+        vestory_config = json.load(file_r)
+
+    vestory_config['changes'] = changes
+    with open(CONFIG_FILE, 'w') as file_w:
+        json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
+
+
 def join_file_changes(file_changes: List[dict]) -> dict:
     """Junta todas as alterações de um arquivo"""
 
@@ -296,6 +308,3 @@ def submit_change(files: list, comment: str) -> None:
 
         change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
         change_info_base64 = b64encode(change_info_json).decode()
-
-        _update_file(change_info_base64, file_history_path, new_line=True)
-        _update_file_hash(filepath, hash_file)
