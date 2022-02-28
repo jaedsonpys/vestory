@@ -74,12 +74,18 @@ vestory add -a
 
 ### Submeter alterações
 
-Para submeter uma alteração, você precisa especificar os arquivos, ou submeter a alteração de todos os arquivos que foram adicionados utilizando a flag `-A`.
+Para submeter uma alteração, você precisa especificar os arquivos, ou submeter a alteração de todos os arquivos que foram adicionados utilizando a flag `-a`.
 
 Também é necessário adicionar um comentário sobre aquela alteração, para isso, utilizamos a flag `-c`. Veja um exemplo:
 
 ```
 vestory submit example.txt -c 'first changes'
+```
+
+Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
+
+```
+vestory submit -ac 'first changes'
 ```
 
 ## Licença
