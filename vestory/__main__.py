@@ -14,21 +14,14 @@ EXEC_PATH = os.getcwd()
 
 def main():
     parser = ArgEasy()
+    
     parser.add_argument('init', 'Init a repo', action='store_true')
-
-    # add argument
     parser.add_argument('add', 'Add files to tracking', action='append')
     parser.add_flag('-a', 'Select all files', action='store_true')
-
-    # submit change
     parser.add_argument('submit', 'Submit changes', 'append')
     parser.add_flag('-c', 'Comment the change') 
-
-    # log
     parser.add_argument('log', 'View history of changes', 'store_true')
     parser.add_argument('status', 'View status of files', 'store_true')
-
-    # junction of flags "-a" and "-c"
     parser.add_flag('-ac', 'Junction of flags "-a" and "-c"')
 
     args = parser.get_args()
