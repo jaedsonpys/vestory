@@ -186,20 +186,20 @@ def get_filepath_by_id(file_id: str) -> str:
     return filepath
 
 
-def get_file_changes(file_id: str) -> list:
+def get_file_changes(filepath: str) -> list:
     """Obtém todas as alterações de um arquivo"""
 
-    file_history_path = path.join(CHANGES_DIR, file_id)
-    with open(file_history_path, 'r') as file_r:
-        file_content = file_r.readlines()
+    with open(CONFIG_FILE, 'r') as file_r:
+        vestory_config = json.load(file_r)
 
-    history = []
+    file_changes = []
+    changes = vestory_config.get('changes')
+    
+    for change_id, info in changes:
+        if info['filepath'] == filepath:
+            file_changes.append((change_id, info))
 
-    for line in file_content:
-        change_info = json.loads(b64decode(line))
-        history.append(change_info)
-
-    return history
+    return file_changes
 
 
 def get_all_changes() -> dict:
