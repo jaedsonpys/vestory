@@ -6,7 +6,9 @@ from .version_control import (
     get_files_changed,
     init_repo,
     submit_change,
-    get_all_changes
+    get_all_changes,
+    join_changes,
+    get_filepath_by_id
 )
 
 EXEC_PATH = os.getcwd()
@@ -14,14 +16,16 @@ EXEC_PATH = os.getcwd()
 
 def main():
     parser = ArgEasy()
-    
+
     parser.add_argument('init', 'Init a repo', action='store_true')
     parser.add_argument('add', 'Add files to tracking', action='append')
-    parser.add_flag('-a', 'Select all files', action='store_true')
     parser.add_argument('submit', 'Submit changes', 'append')
-    parser.add_flag('-c', 'Comment the change') 
     parser.add_argument('log', 'View history of changes', 'store_true')
     parser.add_argument('status', 'View status of files', 'store_true')
+    parser.add_argument('join', 'Join changes of files', action='append')
+
+    parser.add_flag('-a', 'Select all files', action='store_true')
+    parser.add_flag('-c', 'Comment the change')
     parser.add_flag('-ac', 'Junction of flags "-a" and "-c"')
 
     args = parser.get_args()
@@ -101,5 +105,35 @@ def main():
 
         print('\nuse "vestory submit -a" to submit changes.')
         print('to add files, use "vestory add".')
+    elif args.join is not None:
+        print('\033[33mwarning: the "join" command will'
+              'replace the current files.\033[m\n')
+
+        while True:
+            confirm = input('> Do you wish to proceed? [y/n] ').strip().lower()
+            if confirm not in ('y', 'n'):
+                print('\033[31mSelect an option between "y" and "n"\033[m')
+                continue
+            else:
+                break
+
+        if confirm == 'n':
+            return None
+
+        joined_changes = join_changes()
+
+        for file_id, content in joined_changes.items():
+            filepath = get_filepath_by_id(file_id)
+            file_lines = []
+
+            for line in content.values():
+                file_lines.append(line)
+
+            with open(filepath, 'w') as file_w:
+                file_w.write('\n'.join(file_lines))
+
+            print(f'\033[32mfile "{filepath}" successfully completed\033[m')
+    
+        print('\nDone.')
 
     return None
