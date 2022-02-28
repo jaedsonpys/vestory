@@ -57,28 +57,19 @@ def main():
 
         add_files(files_to_add)
     elif args.submit is not None:
-        if args.ac:
+        comment = args.c
+        if args.a:
             files_to_submit = []
-            comment = args.ac
-
             for root, dir, files in os.walk('./'):
-                for file in files:
-                    files_to_submit.append(os.path.join(root, file))
+                if '.vestory/' not in root:
+                    for file in files:
+                        files_to_submit.append(os.path.join(root, file))
         else:
-            comment = args.c
-            if args.a:
-                files_to_submit = []
+            files_to_submit = args.submit
 
-                for root, dir, files in os.walk('./'):
-                    if '.vestory/' not in root:
-                        for file in files:
-                            files_to_submit.append(os.path.join(root, file))
-            else:
-                files_to_submit = args.submit
-
-            if not comment:
-                print('error: a comment on the change is required. Use "-c."')
-                return None
+        if not comment:
+            print('error: a comment on the change is required. Use "-c."')
+            return None
 
         submit_change(files_to_submit, comment)
     elif args.log:
