@@ -209,10 +209,12 @@ def get_changes() -> dict:
     return changes
 
 
-def _add_new_change(change_id: str, change_info: dict) -> None:
+def _add_new_change(
+    change_id: str,
+    change_info: dict,
+    file_lines: str
+) -> None:
     changes = get_changes()
-
-    file_change = change_info['change']
     change_filepath = os.path.join(CHANGES_DIR, change_id)
     changes[change_id] = change_info
 
@@ -224,7 +226,7 @@ def _add_new_change(change_id: str, change_info: dict) -> None:
         json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
 
     with open(change_filepath, 'w') as file_w:
-        b64_json = b64encode(file_change)
+        b64_json = b64encode(file_lines)
         file_w.write(b64_json)
 
 
@@ -293,8 +295,8 @@ def submit_change(files: list, comment: str) -> None:
 
         change_id = _generate_id()
         change_path = path.join(CHANGES_DIR, change_id)
-        file_lines = _enumerate_lines(file_content)
-        hash_lines = md5(str(file_lines).encode()).hexdigest()
+        file_lines = json.dumps(_enumerate_lines(file_content))
+        hash_lines = md5(file_lines.encode()).hexdigest()
 
         change_info = {
             'author': author,
@@ -302,7 +304,6 @@ def submit_change(files: list, comment: str) -> None:
             'date': str(datetime.now()),
             'comment': comment,
             'hash_lines': hash_lines,
-            'change': file_lines,
             'filepath': filepath
         }
 
@@ -313,4 +314,4 @@ def submit_change(files: list, comment: str) -> None:
             difference = check_diff(joined_changes, file_lines)
             change_info['change'] = difference
 
-        _add_new_change(change_id, change_info)
+        _add_new_change(change_id, change_info, file_lines)
