@@ -61,16 +61,16 @@ Para adicionar arquivos ao monitoramento de alterações:
 vestory add example.txt
 ```
 
-Também é possível adicionar vários arquivos de uma vez, escrevendo o nome de cada um ou utilizando a flag `-A`:
+Também é possível adicionar vários arquivos de uma vez, escrevendo o nome de cada um ou utilizando a flag `-a`:
 
 ```
 vestory add example.txt test.py project/app.py
 ```
 ```
-vestory add -A
+vestory add -a
 ```
 
-> a flag `-A` adiciona todos os arquivos presentes no diretório.
+> a flag `-a` adiciona todos os arquivos presentes no diretório.
 
 ### Submeter alterações
 
