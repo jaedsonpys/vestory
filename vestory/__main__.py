@@ -8,7 +8,8 @@ from .version_control import (
     submit_change,
     get_all_changes,
     join_changes,
-    get_filepath_by_id
+    get_filepath_by_id,
+    get_files_tracked
 )
 
 EXEC_PATH = os.getcwd()
@@ -59,11 +60,7 @@ def main():
     elif args.submit is not None:
         comment = args.c
         if args.a:
-            files_to_submit = []
-            for root, dir, files in os.walk('./'):
-                if '.vestory/' not in root:
-                    for file in files:
-                        files_to_submit.append(os.path.join(root, file))
+            files_to_submit = [file for file in get_files_tracked().keys()]
         else:
             files_to_submit = args.submit
 
