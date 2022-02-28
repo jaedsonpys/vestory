@@ -1,9 +1,11 @@
 import json
+import os
 from base64 import b64decode, b64encode
 from datetime import datetime
 from hashlib import md5
 from os import getcwd, mkdir, path
-import os
+from random import choice
+from string import ascii_letters, digits
 from typing import Final, List
 
 from .exceptions import RepoNotExistsError
@@ -13,6 +15,11 @@ LOCAL: Final = getcwd()
 REPO_PATH: Final = path.join(LOCAL, '.vestory')
 CHANGES_DIR: Final = path.join(REPO_PATH, 'changes')
 CONFIG_FILE: Final = path.join(REPO_PATH, 'vestory.config.json')
+
+
+def _generate_id() -> str:
+    char = ascii_letters + digits
+    return ''.join([i for i in choice(char) for __ in range(32)])
 
 
 def _update_file(content: str, path: str, new_line: bool = False) -> None:
