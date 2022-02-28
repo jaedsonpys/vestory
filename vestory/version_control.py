@@ -211,6 +211,9 @@ def get_changes() -> dict:
 
 def _add_new_change(change_id: str, change_info: dict) -> None:
     changes = get_changes()
+
+    file_change = change_info['change']
+    change_filepath = os.path.join(CHANGES_DIR, change_id)
     changes[change_id] = change_info
 
     with open(CONFIG_FILE, 'r') as file_r:
@@ -219,6 +222,10 @@ def _add_new_change(change_id: str, change_info: dict) -> None:
     vestory_config['changes'] = changes
     with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
+
+    with open(change_filepath, 'w') as file_w:
+        b64_json = b64encode(file_change)
+        file_w.write(b64_json)
 
 
 def join_file_changes(file_changes: List[dict]) -> dict:
@@ -306,5 +313,4 @@ def submit_change(files: list, comment: str) -> None:
             difference = check_diff(joined_changes, file_lines)
             change_info['change'] = difference
 
-        change_info_json = json.dumps(change_info, ensure_ascii=False).encode()
-        change_info_base64 = b64encode(change_info_json).decode()
+        _add_new_change(change_id, change_info)
