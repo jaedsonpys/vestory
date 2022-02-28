@@ -28,6 +28,9 @@ def main():
     parser.add_argument('log', 'View history of changes', 'store_true')
     parser.add_argument('status', 'View status of files', 'store_true')
 
+    # junction of flags "-a" and "-c"
+    parser.add_flag('-ac', 'Junction of flags "-a" and "-c"')
+
     args = parser.get_args()
 
     if args.init:
@@ -54,20 +57,27 @@ def main():
 
         add_files(files_to_add)
     elif args.submit is not None:
-        comment = args.c
-
-        if args.a:
+        if args.ac:
             files_to_submit = []
+            comment = args.ac
 
             for root, dir, files in os.walk('./'):
                 for file in files:
                     files_to_submit.append(os.path.join(root, file))
         else:
-            files_to_submit = args.submit
+            comment = args.c
+            if args.a:
+                files_to_submit = []
 
-        if not comment:
-            print('error: a comment on the change is required. Use "-c."')
-            return None
+                for root, dir, files in os.walk('./'):
+                    for file in files:
+                        files_to_submit.append(os.path.join(root, file))
+            else:
+                files_to_submit = args.submit
+
+            if not comment:
+                print('error: a comment on the change is required. Use "-c."')
+                return None
 
         submit_change(files_to_submit, comment)
     elif args.log:
