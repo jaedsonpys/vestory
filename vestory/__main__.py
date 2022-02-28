@@ -110,10 +110,10 @@ def main():
         print('to add files, use "vestory add".')
     elif args.join:
         print('\033[33mwarning: the "join" command will'
-              'replace the current files.\033[m\n')
+              'replace the current files.\033[m')
 
         while True:
-            confirm = input('> Do you wish to proceed? [y/n] ').strip().lower()
+            confirm = input('\033[1m> Do you wish to proceed? [y/n] ').strip().lower()
             if confirm not in ('y', 'n'):
                 print('\033[31mSelect an option between "y" and "n"\033[m')
                 continue
