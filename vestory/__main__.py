@@ -39,9 +39,8 @@ def main():
 
         if not result:
             print(f'\033[31mJá existe um repositório em "{EXEC_PATH}"\033[m')
-            return None
-        
-        print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
+        else:
+            print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
     elif args.add is not None:
         if args.a:
             files_to_add = []
