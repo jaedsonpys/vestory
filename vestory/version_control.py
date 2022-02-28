@@ -230,13 +230,17 @@ def _add_new_change(
         file_w.write(b64_json)
 
 
-def join_file_changes(file_changes: List[dict]) -> dict:
+def join_file_changes(changes: list) -> dict:
     """Junta todas as alterações de um arquivo"""
 
     joined_changes = {}
 
-    for change in file_changes:
-        for line, content in change['change'].items():
+    for change_id in changes.values():
+        change_filepath = os.path.join(CHANGES_DIR, change_id)
+        with open(change_filepath, 'r') as file_r:
+            changed_lines = json.loads(b64decode(file_r.read()))
+
+        for line, content in changed_lines.items():
             joined_changes[line] = content
 
     return joined_changes
