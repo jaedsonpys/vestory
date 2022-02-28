@@ -104,6 +104,14 @@ Será apresentado as seguintes informações:
 - Hash MD5 da alteração
 - Comentário sobre a alteração
 
+### Status dos arquivos
+
+O status do arquivo mostra se ele foi alterado ou não, para verificar essa informação, utilize o argumento `status`:
+
+```
+vestory status
+```
+
 ## Licença
 
 GNU GENERAL PUBLIC LICENSE
