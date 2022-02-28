@@ -18,6 +18,8 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Inicializando repositório](#Inicializando-repositório)
     - [Adicionar arquivos](#Adicionar-arquivos)
     - [Submeter alterações](#Submeter-alterações)
+    - [Ver log de alterações](#Ver-log-de-alterações)
+    - [Status dos arquivos](#Status-dos-arquivos)
 - [Licença](#Licença)
 
 ## Versão 1.0.0
