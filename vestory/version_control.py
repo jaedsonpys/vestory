@@ -23,7 +23,7 @@ def _update_file(content: str, path: str, new_line: bool = False) -> None:
             file_w.write(content)
 
 
-def _get_files_tracked() -> dict:
+def get_files_tracked() -> dict:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
@@ -71,7 +71,7 @@ def check_file_has_changed(filename: str) -> bool:
     if not _check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
 
-    tracked_files = _get_files_tracked()
+    tracked_files = get_files_tracked()
 
     if filename in tracked_files:
         with open(filename, 'r') as file_r:
@@ -93,7 +93,7 @@ def check_file_has_changed(filename: str) -> bool:
 def get_files_changed() -> list:
     """Retorna quais arquivos foram alterados"""
 
-    tracked_files = _get_files_tracked()
+    tracked_files = get_files_tracked()
     changed_files = []
 
     for filepath in tracked_files.keys():
@@ -145,7 +145,7 @@ def add_files(files: list) -> None:
     if not _check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
     
-    tracked_files = _get_files_tracked()
+    tracked_files = get_files_tracked()
     to_add = dict()
 
     for file in files:
@@ -258,7 +258,7 @@ def submit_change(files: list, comment: str) -> None:
     if not _check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
 
-    tracked_files = _get_files_tracked()
+    tracked_files = get_files_tracked()
     author, author_email = get_author_info()
 
     for filepath in files:
