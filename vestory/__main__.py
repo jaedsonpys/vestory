@@ -51,8 +51,9 @@ def main():
             files_to_add = []
 
             for root, dir, files in os.walk('./'):
-                for file in files:
-                    files_to_add.append(os.path.join(root, file))
+                if not '.vestory' in root:
+                    for file in files:
+                        files_to_add.append(os.path.join(root, file))
         else:
             files_to_add = args.add
 
