@@ -112,6 +112,16 @@ class TestVestory(SeqTest):
             msg_error='Incorrect change join'
         )
 
+    def test_join_changes(self):
+        joined_changes = vestory.join_changes()
+        filepath = list(joined_changes.keys())[0]
+        first_file = joined_changes[filepath]
+
+        self.is_true(
+            {'0': 'Welcome to my file!\n', '1': 'More lines here!'} == first_file,
+            msg_error='Incorrect change join'
+        )
+
     def test_get_all_changes(self):
         changes = vestory.get_all_changes()
         self.is_true(len(changes.keys()) == 10, 'Some changes are missing')
