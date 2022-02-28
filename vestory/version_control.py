@@ -122,10 +122,13 @@ def init_repo(author: str, author_email: str) -> bool:
     init_date = str(datetime.now())
 
     # adicionando arquivo de configuração
-    vestory_config = {'author': author,
-                      'author_email': author_email,
-                      'init_date': init_date,
-                      'tracking_files': dict()}
+    vestory_config = {
+        'author': author,
+        'author_email': author_email,
+        'init_date': init_date,
+        'tracking_files': dict(),
+        'changes': dict()
+    }
 
     # salvando configurações    
     with open(CONFIG_FILE, 'w') as file_w:
