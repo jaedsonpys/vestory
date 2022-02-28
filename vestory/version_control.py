@@ -211,23 +211,15 @@ def get_changes() -> dict:
 
 def _add_new_change(
     change_id: str,
-    change_info: dict,
-    file_lines: str
+    change_info: dict
 ) -> None:
-    changes = get_changes()
-    change_filepath = os.path.join(CHANGES_DIR, change_id)
-    changes[change_id] = change_info
-
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
-    vestory_config['changes'] = changes
+    vestory_config['changes'][change_id] = change_info
+
     with open(CONFIG_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
-
-    with open(change_filepath, 'w') as file_w:
-        b64_json = b64encode(file_lines)
-        file_w.write(b64_json)
 
 
 def join_file_changes(changes: list) -> dict:
