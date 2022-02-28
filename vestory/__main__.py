@@ -128,7 +128,7 @@ def main():
                 file_lines.append(line)
 
             with open(filepath, 'w') as file_w:
-                file_w.write('\n'.join(file_lines))
+                file_w.write(''.join(file_lines))
 
             print(f'\033[32mfile "{filepath}" successfully completed\033[m')
     
