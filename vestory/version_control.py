@@ -252,26 +252,29 @@ def submit_change(files: list, comment: str) -> None:
     tracked_files = _get_files_tracked()
     author, author_email = get_author_info()
 
-    for file in files:
+    for filepath in files:
         # ignorando arquivo não rastreado
-        if file not in tracked_files:
+        if filepath not in tracked_files:
             continue
 
-        hash_file_path = md5(file.encode()).hexdigest()
+        hash_file_path = md5(filepath.encode()).hexdigest()
         file_history_path = path.join(CHANGES_DIR, hash_file_path)
 
-        with open(file, 'rb') as file_r:
+        with open(filepath, 'rb') as file_r:
             file_content = file_r.readlines()
 
         file_lines = _enumerate_lines(file_content)
         hash_file = md5(str(file_lines).encode()).hexdigest()
 
-        change_info = {'author': author,
-                        'author_email': author_email,
-                        'date': str(datetime.now()),
-                        'comment': comment,
-                        'hash_file': hash_file,
-                        'file': file_lines}
+        change_info = {
+            'author': author,
+            'author_email': author_email,
+            'date': str(datetime.now()),
+            'comment': comment,
+            'hash_file': hash_file,
+            'file': file_lines,
+            'filepath': filepath
+        }
 
         if path.isfile(file_history_path):
             all_changes = get_file_changes(hash_file_path)
@@ -284,4 +287,4 @@ def submit_change(files: list, comment: str) -> None:
         change_info_base64 = b64encode(change_info_json).decode()
 
         _update_file(change_info_base64, file_history_path, new_line=True)
-        _update_file_hash(file, hash_file)
+        _update_file_hash(filepath, hash_file)
