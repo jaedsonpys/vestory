@@ -39,7 +39,7 @@ def _update_tracked_files(files: dict) -> None:
         json.dump(vestory_config, file_w, indent=4)
 
 
-def _check_repo_exists() -> bool:
+def check_repo_exists() -> bool:
     return path.isdir(REPO_PATH)
 
 
@@ -67,7 +67,7 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
 def check_file_has_changed(filename: str) -> bool:
     """Checa se o arquivo foi alterado"""
 
-    if not _check_repo_exists():
+    if not check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
 
     tracked_files = get_files_tracked()
@@ -111,7 +111,7 @@ def init_repo(author: str, author_email: str) -> bool:
     :type local: str
     """
 
-    if _check_repo_exists():
+    if check_repo_exists():
         return False
 
     # criando diretório ".vestory"
@@ -144,7 +144,7 @@ def add_files(files: list) -> None:
     :type files: list
     """
 
-    if not _check_repo_exists():
+    if not check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
     
     tracked_files = get_files_tracked()
@@ -266,7 +266,7 @@ def submit_change(files: list, comment: str) -> None:
     :type files: list
     """
 
-    if not _check_repo_exists():
+    if not check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
 
     author, author_email = get_author_info()

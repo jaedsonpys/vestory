@@ -9,7 +9,7 @@ from .version_control import (
     get_changes,
     join_changes,
     get_files_tracked,
-    _check_repo_exists
+    check_repo_exists
 )
 
 EXEC_PATH = os.getcwd()
@@ -34,13 +34,13 @@ def main():
     parser.add_flag('-c', 'Comment the change')
 
     args = parser.get_args()
-    repo_exists = _check_repo_exists()
+    repo_exists = check_repo_exists()
 
     if args.init:
         # test informations
         name = 'Elliot'
         email = 'elliot@protonmail.com'
-        
+
         if repo_exists:
             print(f'\033[31mJá existe um repositório em "{EXEC_PATH}"\033[m')
         else:
