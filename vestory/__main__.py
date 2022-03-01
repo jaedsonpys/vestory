@@ -54,10 +54,7 @@ def main():
         else:
             init_repo(name, email)
             print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
-
-        return None
-
-    if repo_exists:
+    elif repo_exists:
         if args.add is not None:
             if args.a:
                 files_to_add = []
