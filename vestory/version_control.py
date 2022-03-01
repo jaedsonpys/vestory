@@ -192,9 +192,9 @@ def get_file_changes(_filepath: str) -> list:
     file_changes = []
     changes = get_changes()
     
-    for change_id, info in changes:
+    for change_id, info in changes.items():
         for filepath, fileinfo in info['changed_files'].items():
-            if filepath['filepath'] == _filepath:
+            if filepath == _filepath:
                 file_changes.append((change_id, fileinfo))
 
     return file_changes
