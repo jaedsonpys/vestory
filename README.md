@@ -1,7 +1,6 @@
 # Vestory - Fast, simple and practical
 
 ![BADGE](https://img.shields.io/static/v1?label=status&message=desenvolvimento&color=red&style=flat-square)
-![BADGE](https://img.shields.io/static/v1?label=versão&message=1.0.0&color=purple&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=licença&message=GPL%20v3.0&color=red&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat-square)
@@ -12,7 +11,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
 
 ### Links
 
-- [Versão 1.0.0](#Versão-1.0.0)
+- [Versão 1.0](#Versão-1.0)
 - [Instalação](#Instalação)
 - [Como funciona](#Como-funciona)
 - [Utilizando o Vestory](#Utilizando-o-Vestory)
@@ -24,7 +23,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Status dos arquivos](#Status-dos-arquivos)
 - [Licença](#Licença)
 
-## Versão 1.0.0
+## Versão 1.0
 
 Esta versão do Vestory pode:
 
