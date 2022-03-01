@@ -19,7 +19,7 @@ CONFIG_FILE: Final = path.join(REPO_PATH, 'vestory.config.json')
 
 def _generate_id() -> str:
     char = ascii_letters + digits
-    return ''.join([i for i in choice(char) for __ in range(32)])
+    return ''.join([choice(char) for __ in range(32)])
 
 
 def get_files_tracked() -> dict:
