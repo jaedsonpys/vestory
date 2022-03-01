@@ -86,11 +86,6 @@ class TestVestory(SeqTest):
         self.is_true(isinstance(change_info, dict), msg_error='Change not found')        
         self.is_true(len(changed_files) == len(self.files), msg_error='Some files were not found')
 
-    def test_get_filepath_by_id(self):
-        file_id = md5(self.files[0].encode()).hexdigest()
-        filepath = vestory.get_filepath_by_id(file_id)
-        self.is_true(filepath == self.files[0], 'Incorrect file path')
-
     def test_check_file_has_changed_2(self):
         for file in self.files:
             self.is_false(vestory.check_file_has_changed(file), 'Change detected')
