@@ -291,9 +291,10 @@ def submit_change(files: list, comment: str) -> None:
             file_content = file_r.readlines()
 
         file_id = _generate_id()
-        file_lines = json.dumps(_enumerate_lines(file_content))
-        file_lines_b64 = b64encode(file_lines.encode()).decode()
-        hash_lines = md5(file_lines.encode()).hexdigest()
+        file_lines = _enumerate_lines(file_content)
+        file_lines_str = json.dumps(file_lines)
+        file_lines_b64 = b64encode(file_lines_str.encode()).decode()
+        hash_lines = md5(file_lines_str.encode()).hexdigest()
 
         changed_files[filepath] = {
             'file_id': file_id,
