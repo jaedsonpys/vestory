@@ -21,7 +21,12 @@ def write_file(filepath: str, content: str) -> None:
 
 
 def main():
-    parser = ArgEasy()
+    parser = ArgEasy(
+        description='Controle de versões Vestory.'
+        'Visite https://github.com/jaedsonpys/vestory para obter ajuda.',
+        version='1.0.0',
+        project_name='Vestory'
+    )
 
     parser.add_argument('init', 'Init a repo', action='store_true')
     parser.add_argument('add', 'Add files to tracking', action='append')
