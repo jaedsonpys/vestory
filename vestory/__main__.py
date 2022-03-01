@@ -70,20 +70,16 @@ def main():
 
         submit_change(files_to_submit, comment)
     elif args.log:
-        history = get_all_changes()
-        for file_id, changes in history.items():
-            for change in changes:
-                date = change.get('date')
-                comment = change.get('comment')
+        history = get_changes()
+        for change_id, change_info in history.items():
+            date = change_info.get('date')
+            comment = change_info.get('comment')
+            author = change_info.get('author')
+            author_email = change_info.get('author_email')
 
-                author = change.get('author')
-                author_email = change.get('author_email')
-
-                hash_file = change.get('hash_file')
-
-                print(f'\033[33m{date} - {hash_file}\033[m')
-                print(f'Author: {author} ({author_email})')
-                print(f'Comment: {comment}\n')
+            print(f'\033[33m{date} - {change_id}\033[m')
+            print(f'Author: {author} ({author_email})')
+            print(f'Comment: {comment}\n')
     elif args.status:
         changed_files = get_files_changed()
 
