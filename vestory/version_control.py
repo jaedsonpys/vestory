@@ -195,7 +195,7 @@ def get_file_changes(_filepath: str) -> list:
     for change_id, info in changes:
         for filepath, fileinfo in info['changed_files'].items():
             if filepath['filepath'] == _filepath:
-                file_changes.append((change_id, info))
+                file_changes.append((change_id, fileinfo))
 
     return file_changes
 
