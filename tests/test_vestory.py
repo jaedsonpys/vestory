@@ -43,7 +43,6 @@ class TestVestory(SeqTest):
 
         # verify
         self.is_true(os.path.isdir('./.vestory'), 'Repo is not created')
-        self.is_true(os.path.isdir('./.vestory/changes'), 'Diretory "changes" not found')
         self.is_true(os.path.isfile('./.vestory/vestory.config.json'), 'Config file not found')
 
     def test_get_author(self):
