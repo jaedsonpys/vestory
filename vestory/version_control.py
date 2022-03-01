@@ -226,7 +226,13 @@ def _add_new_change(
 def join_file_changes(changes: list) -> dict:
     """Junta todas as alterações de um arquivo"""
 
-    pass
+    joined_changes = {}
+    for change_id, file_info in changes:
+        content = json.loads(b64decode(file_info))
+        for nl, line in content:
+            joined_changes[nl] = content
+
+    return joined_changes
 
 
 def join_changes() -> dict:
