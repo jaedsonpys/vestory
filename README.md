@@ -49,12 +49,6 @@ pip install vestory
 
 Após isso, você poderá utilizá-lo pela linha de comando com o comando `vestory`.
 
-## Como funciona
-
-Ao incializar um repositório, o Vestory irá criar o arquivo de configuração `vestory.config.json` e um diretório chamado `changes`. Dentro desse diretório ficará todas as mudanças de seus arquivos.
-
-Por exemplo, o arquivo `app.py` ficará salvo como um arquivo no diretório `changes`. Dentro desse arquivo, cada linha em **Base64** representa uma alteração no arquivo, se decodificarmos esse base64, obteremos um **JSON** com as informações dessa alteração.
-
 ## Utilizando o Vestory
 
 Primeiro, veja a lista de comandos disponíveis até o momento:
