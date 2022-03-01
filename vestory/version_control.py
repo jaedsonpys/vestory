@@ -6,7 +6,7 @@ from hashlib import md5
 from os import getcwd, mkdir, path
 from random import choice
 from string import ascii_letters, digits
-from typing import Final, List, Union
+from typing import Final, Union
 
 from .exceptions import RepoNotExistsError
 
