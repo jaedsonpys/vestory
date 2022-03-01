@@ -1,11 +1,12 @@
-# Vestory
+# Vestory - Fast, simple and practical
 
-![BADGE](https://img.shields.io/static/v1?label=status&message=desenvolvimento&color=red&style=flat)
-![BADGE](https://img.shields.io/static/v1?label=versão&message=1.0.0&color=purple&style=flat)
-![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat)
-![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat)
+![BADGE](https://img.shields.io/static/v1?label=status&message=desenvolvimento&color=red&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=versão&message=1.0.0&color=purple&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=licença&message=GPL%20v3.0&color=red&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat-square)
 
-**Vestory** (junção de "Version" e "History"), é um controle de versões prático e rápido usado em qualquer terminal por linha de comando (**CLI**). Com comandos simples e fáceis de lembrar, facilitando o uso. Deixe sua estrela!
+**Vestory** (junção de "Version" e "History"), é um controle de versões prático e rápido usado em qualquer terminal por linha de comando (**CLI**). Com comandos simples e fáceis de lembrar, facilitando o uso.
 
 O projeto tem o código-aberto com uso da licença GNU General Public License v3.0. [Leia a licença](#Licença)
 
