@@ -22,14 +22,6 @@ def _generate_id() -> str:
     return ''.join([i for i in choice(char) for __ in range(32)])
 
 
-def _update_file(content: str, path: str, new_line: bool = False) -> None:
-    with open(path, 'a') as file_w:
-        if new_line:
-            file_w.write(f'{content}\n')
-        else:
-            file_w.write(content)
-
-
 def get_files_tracked() -> dict:
     with open(CONFIG_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
