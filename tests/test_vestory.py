@@ -79,13 +79,12 @@ class TestVestory(SeqTest):
         self.is_true(len(changed_files) == 10, 'Error getting files changed')
 
     def test_submit_change(self):
-        vestory.submit_change(self.files, 'add more lines')
+        change_id = vestory.submit_change(self.files, 'add more lines')
+        change_info = vestory.get_change_info_by_id(change_id)
+        changed_files = list(change_info['changed_files'].keys())
 
-        for file_history in os.listdir('./.vestory/changes'):
-            with open(os.path.join('./.vestory/changes', file_history)) as file_r:
-                lines_count = len(file_r.readlines())
-        
-            self.check_any_value(lines_count, 2, msg_error='Unrealized change')
+        self.is_true(isinstance(change_info, dict), msg_error='Change not found')        
+        self.is_true(len(changed_files) == len(self.files), msg_error='Some files were not found')
 
     def test_get_filepath_by_id(self):
         file_id = md5(self.files[0].encode()).hexdigest()
