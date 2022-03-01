@@ -70,8 +70,16 @@ def main():
 
         submit_change(files_to_submit, comment)
     elif args.log:
-        history = get_changes()
-        for change_id, change_info in history.items():
+        changes = get_changes()
+        changes_list = []
+
+        for change_id, change_info in changes.items():
+            changes_list.append((change_id, change_info))
+
+        # last changes first
+        changes_list.reverse()
+
+        for change_id, change_info in changes_list:
             date = change_info.get('date')
             comment = change_info.get('comment')
             author = change_info.get('author')
