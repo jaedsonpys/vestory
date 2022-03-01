@@ -6,7 +6,7 @@ from hashlib import md5
 from os import getcwd, mkdir, path
 from random import choice
 from string import ascii_letters, digits
-from typing import Final, List
+from typing import Final, List, Union
 
 from .exceptions import RepoNotExistsError
 
@@ -198,6 +198,11 @@ def get_file_changes(_filepath: str) -> list:
                 file_changes.append((change_id, fileinfo))
 
     return file_changes
+
+
+def get_change_info_by_id(change_id: str) -> Union[dict, None]:
+    all_changes = get_changes()
+    return all_changes.get(change_id)
 
 
 def get_changes() -> dict:
