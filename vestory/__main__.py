@@ -109,8 +109,7 @@ def main():
 
         joined_changes = join_changes()
 
-        for file_id, content in joined_changes.items():
-            filepath = get_filepath_by_id(file_id)
+        for filepath, content in joined_changes.items():
             file_lines = [line for line in content.values()]
             write_file(filepath, ''.join(file_lines))
             print(f'\033[32mfile "{filepath}" successfully completed\033[m')
