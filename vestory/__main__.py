@@ -41,6 +41,9 @@ def main():
     args = parser.get_args()
     repo_exists = check_repo_exists()
 
+    if args.version or args.help:
+        return None
+
     if args.init:
         # test informations
         name = 'Elliot'
