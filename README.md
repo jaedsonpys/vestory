@@ -1,4 +1,4 @@
-# Vestory
+# Vestory - Fast, simple and practical
 
 ![BADGE](https://img.shields.io/static/v1?label=status&message=desenvolvimento&color=red&style=flat)
 ![BADGE](https://img.shields.io/static/v1?label=versão&message=1.0.0&color=purple&style=flat)
