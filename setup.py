@@ -6,6 +6,7 @@ setup(
     name='vestory',
     version='1.0.0',
     packages=['vestory'],
+    install_requires=['PySeqTest', 'argeasy'],
     entry_points={
         'console_scripts': [
             'vestory = vestory.__main__:main'
