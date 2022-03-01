@@ -6,9 +6,8 @@ from .version_control import (
     get_files_changed,
     init_repo,
     submit_change,
-    get_all_changes,
+    get_changes,
     join_changes,
-    get_filepath_by_id,
     get_files_tracked
 )
 
