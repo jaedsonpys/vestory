@@ -116,8 +116,6 @@ def init_repo(author: str, author_email: str) -> bool:
 
     # criando diretório ".vestory"
     mkdir(REPO_PATH)
-    mkdir(CHANGES_DIR)
-
     init_date = str(datetime.now())
 
     # adicionando arquivo de configuração
