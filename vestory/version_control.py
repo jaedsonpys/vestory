@@ -233,9 +233,9 @@ def join_file_changes(changes: list) -> dict:
 
     joined_changes = {}
     for change_id, file_info in changes:
-        content = json.loads(b64decode(file_info))
-        for nl, line in content:
-            joined_changes[nl] = content
+        content = json.loads(b64decode(file_info['content']))
+        for nl, line in content.items():
+            joined_changes[nl] = line
 
     return joined_changes
 
