@@ -308,5 +308,6 @@ def submit_change(files: list, comment: str) -> None:
 
     change_info['changed_files'] = changed_files
     _add_new_change(change_id, change_info)
+    _update_file_hash(filepath, hash_lines)
 
     return change_id
