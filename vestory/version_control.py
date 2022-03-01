@@ -308,7 +308,8 @@ def submit_change(files: list, comment: str) -> None:
             joined_changes = join_file_changes(all_changes)
 
             difference = check_diff(joined_changes, file_lines)
-            b64_difference = b64encode(json.dumps(difference)).decode()
+            difference_bytes = json.dumps(difference).encode()
+            b64_difference = b64encode(difference_bytes).decode()
             change_info['change'] = b64_difference
 
     change_info['changed_files'] = changed_files
