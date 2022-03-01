@@ -84,11 +84,11 @@ def check_file_has_changed(filename: str) -> bool:
         with open(filename, 'r') as file_r:
             file_lines = file_r.readlines()
 
-            enum_lines = str(_enumerate_lines(file_lines))
-            hash_content = md5(enum_lines.encode()).hexdigest()
+            enum_lines = _enumerate_lines(file_lines)
+            enum_lines_str = json.dumps(enum_lines)
+            hash_content = md5(enum_lines_str.encode()).hexdigest()
 
-        previous_hash = tracked_files.get(filename)
-        
+        previous_hash = tracked_files.get(filename)        
         if hash_content != previous_hash:
             return True
         else:
@@ -306,8 +306,9 @@ def submit_change(files: list, comment: str) -> None:
             difference_b64 = b64encode(difference_bytes).decode()
             change_info['change'] = difference_b64
 
+        _update_file_hash(filepath, hash_lines)
+        
     change_info['changed_files'] = changed_files
     _add_new_change(change_id, change_info)
-    _update_file_hash(filepath, hash_lines)
 
     return change_id
