@@ -238,7 +238,16 @@ def join_changes() -> dict:
     """Retorna a junção de todas as alterações
     de todos os arquivos."""
 
-    pass
+    changes = get_changes()
+    joined_changes = {}
+
+    for change_info in changes.values():
+        changed_files = change_info['changed_files']
+        for filepath in changed_files.keys():
+            file_changes = get_file_changes(filepath)
+            joined_changes[filepath] = join_file_changes(file_changes)
+
+    return joined_changes
 
 
 def check_diff(joined_changes: dict, current_change: dict) -> dict:
