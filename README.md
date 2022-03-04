@@ -1,9 +1,7 @@
 # Vestory - Fast, simple and practical
 
-![BADGE](https://img.shields.io/static/v1?label=status&message=development&color=red&style=flat-square)
-![BADGE](https://img.shields.io/static/v1?label=licença&message=GPL%20v3.0&color=red&style=flat-square)
-![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat-square)
-![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=license&message=GPL%20v3.0&color=red&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=language&message=Python&color=orange&style=flat-square)
 
 **Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use.
 
