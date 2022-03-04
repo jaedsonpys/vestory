@@ -70,6 +70,11 @@ def main():
             add_files(files_to_add)
         elif args.submit is not None:
             comment = args.c
+
+            if not get_files_changed():
+                print('No changes to be submitted.')
+                return None
+
             if args.a:
                 if not comment:
                     print('error: a comment on the change is required. Use "-c."')
