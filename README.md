@@ -11,7 +11,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
 
 ### Links
 
-- [Versão 1.0](#Versão-1.0)
+- [Versão 1.2](#Versão-1.2)
 - [Instalação](#Instalação)
 - [Como funciona](#Como-funciona)
 - [Utilizando o Vestory](#Utilizando-o-Vestory)
@@ -23,7 +23,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Status dos arquivos](#Status-dos-arquivos)
 - [Licença](#Licença)
 
-## Versão 1.0
+## Versão 1.2
 
 Esta versão do Vestory pode:
 

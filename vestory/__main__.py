@@ -24,7 +24,7 @@ def main():
     parser = ArgEasy(
         description='Controle de versões Vestory.\n'
         'Visite https://github.com/jaedsonpys/vestory para obter ajuda.',
-        version='1.0.1',
+        version='1.2.0',
         project_name='Vestory'
     )
 
