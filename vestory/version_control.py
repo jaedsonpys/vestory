@@ -13,8 +13,7 @@ from .exceptions import RepoNotExistsError
 LOCAL: Final = getcwd()
 
 REPO_PATH: Final = path.join(LOCAL, '.vestory')
-CHANGES_DIR: Final = path.join(REPO_PATH, 'changes')
-CONFIG_FILE: Final = path.join(REPO_PATH, 'vestory.config.json')
+VESTORY_FILE: Final = path.join(REPO_PATH, 'vestory.json')
 
 
 def _generate_id() -> str:
@@ -23,19 +22,19 @@ def _generate_id() -> str:
 
 
 def get_files_tracked() -> dict:
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     return vestory_config['tracking_files']
 
 
 def _update_tracked_files(files: dict) -> None:
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     vestory_config['tracking_files'] = files
 
-    with open(CONFIG_FILE, 'w') as file_w:
+    with open(VESTORY_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
 
 
@@ -55,12 +54,12 @@ def _enumerate_lines(lines: list) -> dict:
 
 
 def _update_file_hash(filename: str, new_hash: str) -> None:
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     vestory_config['tracking_files'][filename] = new_hash
 
-    with open(CONFIG_FILE, 'w') as file_w:
+    with open(VESTORY_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
 
 
@@ -128,7 +127,7 @@ def init_repo(author: str, author_email: str) -> bool:
     }
 
     # salvando configurações    
-    with open(CONFIG_FILE, 'w') as file_w:
+    with open(VESTORY_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, indent=4)
 
     return True
@@ -164,7 +163,7 @@ def add_files(files: list) -> None:
 
 
 def get_author_info() -> tuple:
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         config = json.load(file_r)
 
     return (config['author'], config['author_email'])
@@ -192,7 +191,7 @@ def get_change_info_by_id(change_id: str) -> Union[dict, None]:
 def get_changes() -> dict:
     """Obtém todas as alterações"""
 
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     changes = vestory_config.get('changes')
@@ -203,12 +202,12 @@ def _add_new_change(
     change_id: str,
     change_info: dict
 ) -> None:
-    with open(CONFIG_FILE, 'r') as file_r:
+    with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
     vestory_config['changes'][change_id] = change_info
 
-    with open(CONFIG_FILE, 'w') as file_w:
+    with open(VESTORY_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
 
 

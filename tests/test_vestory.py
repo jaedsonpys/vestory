@@ -40,10 +40,8 @@ class TestVestory(SeqTest):
 
     def test_init_repo(self):
         vestory.init_repo('Jaedson', 'test@mail.com')
-
-        # verify
         self.is_true(os.path.isdir('./.vestory'), 'Repo is not created')
-        self.is_true(os.path.isfile('./.vestory/vestory.config.json'), 'Config file not found')
+        self.is_true(os.path.isfile('./.vestory/vestory.json'), 'Vestory file not found')
 
     def test_get_author(self):
         author, author_email = vestory.get_author_info()
@@ -52,9 +50,7 @@ class TestVestory(SeqTest):
 
     def test_add_files(self):
         vestory.add_files(self.files)
-
-        # verify
-        with open('./.vestory/vestory.config.json', 'r') as config:
+        with open('./.vestory/vestory.json', 'r') as config:
             vestory_config: dict = json.load(config)
 
         tracked_files = len(vestory_config['tracking_files'])
