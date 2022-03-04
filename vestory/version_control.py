@@ -33,8 +33,13 @@ def _get_files_to_ignore() -> list:
     if not os.path.isfile(IGNOREME_PATH):
         return []
 
+    ignored_files = []
     with open(IGNOREME_PATH) as file_r:
-        ignored_files = file_r.readlines()
+        content = file_r.readlines()
+
+    for file in content:
+        file = file.replace('\n', '')
+        ignored_files.append(file)
 
     return ignored_files
 
@@ -46,7 +51,7 @@ def check_ignored(dir_or_file: str) -> bool:
         return True
     else:
         for file in ignored_files:
-            if dir_or_file in file:
+            if file in dir_or_file:
                 return True
 
 
