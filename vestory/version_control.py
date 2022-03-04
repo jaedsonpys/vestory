@@ -28,6 +28,16 @@ def get_files_tracked() -> dict:
     return vestory_config['tracking_files']
 
 
+def _get_files_to_ignore() -> list:
+    if not os.path.isfile('./.ignoreme'):
+        return []
+
+    with open('./.ignoreme') as file_r:
+        ignored_files = file_r.readlines()
+
+    return ignored_files
+
+
 def _update_tracked_files(files: dict) -> None:
     with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
