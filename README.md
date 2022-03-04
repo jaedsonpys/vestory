@@ -1,77 +1,77 @@
 # Vestory - Fast, simple and practical
 
-![BADGE](https://img.shields.io/static/v1?label=status&message=desenvolvimento&color=red&style=flat-square)
+![BADGE](https://img.shields.io/static/v1?label=status&message=development&color=red&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=licença&message=GPL%20v3.0&color=red&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=linguagem&message=Python&color=orange&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=tipo&message=CLI&color=blue&style=flat-square)
 
-**Vestory** (junção de "Version" e "History"), é um controle de versões prático e rápido usado em qualquer terminal por linha de comando (**CLI**). Com comandos simples e fáceis de lembrar, facilitando o uso.
+**Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use.
 
-O projeto tem o código-aberto com uso da licença GNU General Public License v3.0. [Leia a licença](#Licença)
+The project is open source under the GNU General Public License v3.0. [Read the license](#License)
 
 ### Links
 
-- [Versão 1.2](#Versão-1.2)
-- [Instalação](#Instalação)
-- [Como funciona](#Como-funciona)
-- [Utilizando o Vestory](#Utilizando-o-Vestory)
-    - [Inicializando repositório](#Inicializando-repositório)
-    - [Adicionar arquivos](#Adicionar-arquivos)
-    - [Submeter alterações](#Submeter-alterações)
-    - [Juntar alterações](#Juntar-alterações)
-    - [Ver log de alterações](#Ver-log-de-alterações)
-    - [Status dos arquivos](#Status-dos-arquivos)
-    - [Ignorando arquivos ou diretórios](#Ignorando-arquivos-ou-diretórios)
-- [Licença](#Licença)
+- [Version 1.2](#Version-1.2)
+- [Installation](#Installation)
+- [How it works](#How-it-works)
+- [Using the Vestory](#Using-the-Vestory)
+    - [Initializing repository](#Initializing-repository)
+    - [Add files](#Add-files)
+    - [Submit Changes](#Submit-Changes)
+    - [Merge changes](#Merge-changes)
+    - [View change-log](#View-change-log)
+    - [File Status](#File-Status)
+    - [Ignoring files or directories](#Ignoring-files-or-directories)
+- [License](#License)
 
-## Versão 1.2
+## Version 1.2
 
-Esta versão do Vestory pode:
+This version of Vestory can:
 
-- [x] Monitorar alterações de arquivos;
-- [x] Salvar alterações de arquivos;
-- [x] Ver logs de alterações;
-- [x] Juntar alterações do arquivo;
-- [x] Ignorar arquivos;
+- [x] Monitor file changes;
+- [x] Save file changes;
+- [x] View change logs;
+- [x] Merge file changes;
+- [x] Ignore files;
 
-## Instalação
+## Installation
 
-Para instalar o **Vestory**, utilize o gerenciador de pacotes PyPi:
+To install **Vestory**, use the PyPi package manager:
 
 ```
 pip install vestory
 ```
 
-Após isso, você poderá utilizá-lo pela linha de comando com o comando `vestory`.
+After that, you can use it from the command line with the `vestory` command.
 
-## Utilizando o Vestory
+## Using the Vestory
 
-Primeiro, veja a lista de comandos disponíveis até o momento:
+First, see the list of commands available so far:
 
-- `init`: cria um novo repositório;
-- `add [files]`: adiciona os arquivos ao monitoramento de alterações;
-- `submit`: salva as alterações realizadas até o momento.
+- `init`: creates a new repository;
+- `add [files]`: adds files to change tracking;
+- `submit`: saves the changes made so far.
 
-### Inicializando repositório
+### Initializing repository
 
-Para incializar um repositório, utilize o comando `init`:
+To initialize a repository, use the `init` command:
 
 ```
 vestory init
 ```
 
-Antes disso, é necessário que suas configurações estejam feitas para incializar um repositório
-corretamente.
+Before that, your settings must be done to initialize a repository
+correctly.
 
-### Adicionar arquivos
+### Add files
 
-Para adicionar arquivos ao monitoramento de alterações:
+To add files to change tracking:
 
 ```
 vestory add example.txt
 ```
 
-Também é possível adicionar vários arquivos de uma vez, escrevendo o nome de cada um ou utilizando a flag `-a`:
+It is also possible to add several files at once, typing the name of each one or using the `-a` flag:
 
 ```
 vestory add example.txt test.py project/app.py
@@ -80,82 +80,82 @@ vestory add example.txt test.py project/app.py
 vestory add -a
 ```
 
-> a flag `-a` adiciona todos os arquivos presentes no diretório.
+> the `-a` flag adds all files present in the directory.
 
-### Submeter alterações
+### Submit changes
 
-Para submeter uma alteração, você precisa especificar os arquivos, ou submeter a alteração de todos os arquivos que foram adicionados utilizando a flag `-a`.
+To commit a change, you need to specify the files, or commit the change of all files that were added using the `-a` flag.
 
-Também é necessário adicionar um comentário sobre aquela alteração, para isso, utilizamos a flag `-c`. Veja um exemplo:
+It is also necessary to add a comment about that change, for this we use the `-c` flag. See an example:
 
 ```
 vestory submit example.txt -c 'first changes'
 ```
 
-Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
+You can commit changes to all monitored files and add a comment using the `-ac` abbreviation:
 
 ```
 vestory submit -ac 'first changes'
 ```
 
-### Juntar alterações
+### Merge changes
 
-Com o argumento `join`, você irá juntar todas as alterações de um arquivo, substituindo o arquivo original. Veja o uso deste argumento:
+With the `join` argument, you will merge all changes to a file, replacing the original file. See the use of this argument:
 
 ```
 vestory join
 ```
-<!-- 
-Este comando irá fazer com que todos os arquivos que estão sendo rastreados juntem suas alterações. Também é possível juntar as alterações de apenas um arquivo:
+<!--
+This command will make all files being tracked merge your changes. It is also possible to merge changes from just one file:
 
 ```
 vestory join test.txt
 ``` -->
 
-Observe que, aparecerá uma mensagem de aviso antes do processo ser realizado:
+Note that a warning message will appear before the process is carried out:
 
 ```
 warning: the "join" command will replace the current files.
-> Do you wish to proceed? [y/n] 
+> Do you wish to proceed? [y/n]
 ```
 
-Confirmando, o processo será realizado.
+Confirming, the process will be carried out.
 
-### Ver log de alterações
+### View change log
 
-Para ver todas as alterações que foram realizadas, utilize o argumento `log`:
+To see all the changes that have been made, use the `log` argument:
 
 ```
 vestory log
 ```
 
-Será apresentado as seguintes informações:
+The following information will be displayed:
 
-- Nome do autor
-- Email do autor
-- Data da alteração
-- ID da mudança
-- Comentário sobre a alteração
+- Author name
+- Author's email
+- Date of change
+- change ID
+- Comment on the change
 
-### Status dos arquivos
+### Status of files
 
-O status do arquivo mostra se ele foi alterado ou não, para verificar essa informação, utilize o argumento `status`:
+The status of the file shows whether it has been changed or not, to check this information use the `status` argument:
 
 ```
 vestory status
 ```
 
-### Ignorando arquivos ou diretórios
+### Ignoring files or directories
 
-Para ignorar arquivos ou diretórios, crie um arquivo na raíz do seu diretório chamado `.ignoreme`. Adicione linha a linha cada arquivo/diretório que serão ignorados. Ao ignorar um arquivo, ele não será adicionado ao monitoramento de alterações quando utilizar o comando `add -a`, e nem terá suas alterações submetidas.
+To ignore files or directories, create a file at the root of your directory called `.ignoreme`. Add line by line each file/directory that will be ignored. By ignoring a file, it will not be added to the change tracking when using the `add -a` command, nor will it have its changes committed.
 
-Na adição de subdiretórios em `.ignoreme`, faça isto desta forma:
+When adding subdirectories to `.ignoreme`, do it like this:
 
 ```
 dir/subdir
 ```
 
-## Licença
+## License
 
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
