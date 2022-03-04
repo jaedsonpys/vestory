@@ -37,10 +37,22 @@ class TestVestory(SeqTest):
                 file_w.write('Welcome to my file!\n')
                 self.files.append(f'./tests/test_files/file-{i}')
 
+        # create file to ignore
+        with open('./tests/test_files/iamignored', 'w') as file_w:
+            file_w.write('Ignore my existence...')
+
+        # create .ignoreme
+        with open('./tests/test_files/.ignoreme', 'w') as file_w:
+            file_w.write('./tests/test_files/iamignored\n')
+
     def test_init_repo(self):
         vestory.init_repo('Jaedson', 'test@mail.com')
         self.is_true(os.path.isdir('./.vestory'), 'Repo is not created')
         self.is_true(os.path.isfile('./.vestory/vestory.json'), 'Vestory file not found')
+
+    def test_get_ignored_files(self):
+        ignored_files = vestory._get_files_to_ignore()
+        self.is_true('./tests/test_files/iamignored' in ignored_files, msg_error='Error in ignore files')
 
     def test_get_author(self):
         author, author_email = vestory.get_author_info()
