@@ -303,7 +303,7 @@ def submit_change(files: list, comment: str) -> None:
                 difference = check_diff(joined_changes, file_lines)
                 difference_bytes = json.dumps(difference).encode()
                 difference_b64 = b64encode(difference_bytes).decode()
-                change_info['change'] = difference_b64
+                changed_files[filepath]['content'] = difference_b64
 
             _update_file_hash(filepath, hash_lines)
             
