@@ -96,25 +96,25 @@ Também é necessário adicionar um comentário sobre aquela alteração, para i
 vestory submit example.txt -c 'first changes'
 ```
 
-Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
+<!-- Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
 
 ```
 vestory submit -ac 'first changes'
-```
+``` -->
 
 ### Juntar alterações
 
-Com o argumento `join`, você irá juntar todas as alterações de um arquivo em um único arquivo, substituindo o arquivo original. Veja o uso deste argumento:
+Com o argumento `join`, você irá juntar todas as alterações de um arquivo, substituindo o arquivo original. Veja o uso deste argumento:
 
 ```
-vestory join -a
+vestory join
 ```
-
+<!-- 
 Este comando irá fazer com que todos os arquivos que estão sendo rastreados juntem suas alterações. Também é possível juntar as alterações de apenas um arquivo:
 
 ```
 vestory join test.txt
-```
+``` -->
 
 Observe que, aparecerá uma mensagem de aviso antes do processo ser realizado:
 
@@ -138,7 +138,7 @@ Será apresentado as seguintes informações:
 - Nome do autor
 - Email do autor
 - Data da alteração
-- Hash MD5 da alteração
+- ID da mudança
 - Comentário sobre a alteração
 
 ### Status dos arquivos
