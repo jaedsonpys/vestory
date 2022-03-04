@@ -14,6 +14,7 @@ LOCAL: Final = getcwd()
 
 REPO_PATH: Final = path.join(LOCAL, '.vestory')
 VESTORY_FILE: Final = path.join(REPO_PATH, 'vestory.json')
+IGNOREME_PATH: Final = path.join(LOCAL, '.ignoreme')
 
 
 def _generate_id() -> str:
@@ -29,10 +30,10 @@ def get_files_tracked() -> dict:
 
 
 def _get_files_to_ignore() -> list:
-    if not os.path.isfile('./.ignoreme'):
+    if not os.path.isfile(IGNOREME_PATH):
         return []
 
-    with open('./.ignoreme') as file_r:
+    with open(IGNOREME_PATH) as file_r:
         ignored_files = file_r.readlines()
 
     return ignored_files
