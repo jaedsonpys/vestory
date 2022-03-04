@@ -21,6 +21,7 @@ O projeto tem o código-aberto com uso da licença GNU General Public License v3
     - [Juntar alterações](#Juntar-alterações)
     - [Ver log de alterações](#Ver-log-de-alterações)
     - [Status dos arquivos](#Status-dos-arquivos)
+    - [Ignorando arquivos ou diretórios](#Ignorando-arquivos-ou-diretórios)
 - [Licença](#Licença)
 
 ## Versão 1.2
@@ -30,13 +31,8 @@ Esta versão do Vestory pode:
 - [x] Monitorar alterações de arquivos;
 - [x] Salvar alterações de arquivos;
 - [x] Ver logs de alterações;
-- [x] Juntar alterações do arquivo.
-
-Na próxima versão, será possível:
-
-- [ ] Voltar na linha do tempo dos arquivos;
-- [ ] Suporte a arquivos de: fotos, vídeos, executáveis, etc;
-- [ ] Ver a diferença de uma alteração.
+- [x] Juntar alterações do arquivo;
+- [x] Ignorar arquivos;
 
 ## Instalação
 
@@ -96,11 +92,11 @@ Também é necessário adicionar um comentário sobre aquela alteração, para i
 vestory submit example.txt -c 'first changes'
 ```
 
-<!-- Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
+Você pode submeter as alterações de todos os arquivos monitorados e adicionar um comentário utilizando a abreviação `-ac`:
 
 ```
 vestory submit -ac 'first changes'
-``` -->
+```
 
 ### Juntar alterações
 
@@ -147,6 +143,16 @@ O status do arquivo mostra se ele foi alterado ou não, para verificar essa info
 
 ```
 vestory status
+```
+
+### Ignorando arquivos ou diretórios
+
+Para ignorar arquivos ou diretórios, crie um arquivo na raíz do seu diretório chamado `.ignoreme`. Adicione linha a linha cada arquivo/diretório que serão ignorados. Ao ignorar um arquivo, ele não será adicionado ao monitoramento de alterações quando utilizar o comando `add -a`, e nem terá suas alterações submetidas.
+
+Na adição de subdiretórios em `.ignoreme`, faça isto desta forma:
+
+```
+dir/subdir
 ```
 
 ## Licença
