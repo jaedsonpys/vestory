@@ -65,6 +65,14 @@ class TestVestory(SeqTest):
             with open(file, 'a') as file_u:
                 file_u.write('More lines here!')
 
+    def test_check_diff(self):
+        file_changes = vestory.get_file_changes(self.files[0])
+        joined_changes = vestory.join_file_changes(file_changes)
+
+        change = {'1': 'Change', '2': 'Test diff'}
+        diff = vestory.check_diff(joined_changes, change)
+        self.is_true(change == diff, msg_error='Incorrect difference')
+
     def test_check_file_has_changed(self):
         for file in self.files:
             self.is_true(vestory.check_file_has_changed(file), 'Change not detected')
