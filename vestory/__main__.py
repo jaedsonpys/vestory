@@ -37,6 +37,7 @@ def main():
 
     parser.add_flag('-a', 'Select all files', action='store_true')
     parser.add_flag('-c', 'Comment the change')
+    parser.add_flag('-ac', 'Select all files and comment the change')
 
     args = parser.get_args()
     repo_exists = check_repo_exists()
@@ -70,13 +71,18 @@ def main():
         elif args.submit is not None:
             comment = args.c
             if args.a:
+                if not comment:
+                    print('error: a comment on the change is required. Use "-c."')
+                    return None
                 files_to_submit = [file for file in get_files_tracked().keys()]
+            elif args.ac:
+                files_to_submit = [file for file in get_files_tracked().keys()]
+                comment = args.ac
             else:
+                if not args.submit:
+                    print('error: specify the files to be submitted')
+                    return None
                 files_to_submit = args.submit
-
-            if not comment:
-                print('error: a comment on the change is required. Use "-c."')
-                return None
 
             submit_change(files_to_submit, comment)
         elif args.log:
