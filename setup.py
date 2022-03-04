@@ -4,7 +4,7 @@ setup(
     author='Jaedson Silva',
     author_email='imunknowuser@protonmail.com',
     name='vestory',
-    version='1.0.1',
+    version='1.2.0',
     packages=['vestory'],
     install_requires=['PySeqTest', 'argeasy'],
     entry_points={
