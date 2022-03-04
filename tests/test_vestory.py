@@ -4,7 +4,6 @@ import sys
 
 sys.path.insert(0, './')
 
-from hashlib import md5
 from shutil import rmtree
 
 import vestory
