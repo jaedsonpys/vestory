@@ -167,11 +167,10 @@ def add_files(files: list) -> None:
         raise RepoNotExistsError('Repositório não encontrado')
     
     tracked_files = get_files_tracked()
-    ignore = _get_files_to_ignore()
     to_add = dict()
 
     for file in files:
-        if file not in tracked_files and file not in ignore:
+        if file not in tracked_files and not check_ignored(file):
             if path.isfile(file):
                 with open(file, 'rb') as file_r:
                     file_content = file_r.read()
