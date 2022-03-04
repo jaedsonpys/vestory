@@ -39,6 +39,17 @@ def _get_files_to_ignore() -> list:
     return ignored_files
 
 
+def check_ignored(dir_or_file: str) -> bool:
+    ignored_files = _get_files_to_ignore()
+
+    if dir_or_file in ignored_files:
+        return True
+    else:
+        for file in ignored_files:
+            if dir_or_file in file:
+                return True
+
+
 def _update_tracked_files(files: dict) -> None:
     with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
