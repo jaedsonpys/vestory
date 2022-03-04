@@ -51,8 +51,8 @@ class TestVestory(SeqTest):
         self.is_true(os.path.isfile('./.vestory/vestory.json'), 'Vestory file not found')
 
     def test_get_ignored_files(self):
-        ignored_files = vestory._get_files_to_ignore()
-        self.is_true('./tests/test_files/iamignored' in ignored_files, msg_error='Error in ignore files')
+        has_ignored = vestory.check_ignored('./tests/test_files/iamignored')
+        self.is_true(has_ignored, msg_error='Error in ignore files')
 
     def test_get_author(self):
         author, author_email = vestory.get_author_info()
