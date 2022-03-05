@@ -2,7 +2,7 @@ import os
 
 from argeasy import ArgEasy
 
-from .vestory_config import set_author_email, set_author_name
+from .vestory_config import set_author_email, set_author_name, get_author
 from .version_control import (add_files, check_repo_exists, get_changes,
                               get_files_changed, get_files_tracked, init_repo,
                               join_changes, submit_change)
@@ -59,13 +59,10 @@ def main():
         return None
 
     if args.init:
-        # test informations
-        name = 'Elliot'
-        email = 'elliot@protonmail.com'
-
         if repo_exists:
             print(f'\033[31mJá existe um repositório em "{EXEC_PATH}"\033[m')
         else:
+            name, email = get_author()
             init_repo(name, email)
             print(f'\033[1;32mNovo repositório inicializado em "{EXEC_PATH}"!\033[m')
     elif repo_exists:
