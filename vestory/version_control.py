@@ -240,8 +240,15 @@ def get_file_changes(_filepath: str) -> list:
 
 def get_change_info_by_id(change_id: str) -> Union[dict, None]:
     all_changes = get_changes()
-    change = integrity.decode_without_key(all_changes.get(change_id))
-    return change
+    change_token = all_changes.get(change_id)
+
+    change_info = integrity.decode_without_key(change_token)
+    has_valid = _check_valid_change(change_token)
+
+    if not has_valid:
+        raise Exception('Invalid change')
+
+    return change_info
 
 
 def get_changes() -> dict:
