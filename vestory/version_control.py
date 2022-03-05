@@ -9,7 +9,7 @@ from string import ascii_letters, digits
 from typing import Final, Union
 
 from . import integrity
-from .exceptions import RepoNotExistsError
+from .exceptions import InvalidChangeError, RepoNotExistsError
 
 LOCAL: Final = getcwd()
 
@@ -230,7 +230,7 @@ def get_file_changes(_filepath: str) -> list:
                 if filepath == _filepath:
                     file_changes.append((change_id, fileinfo))
         else:
-            raise Exception('Invalid change')
+            raise InvalidChangeError(f'Change "{change_id}" invalid')
 
     return file_changes
 
@@ -241,7 +241,7 @@ def get_change_info_by_id(change_id: str) -> Union[dict, None]:
     change_info = _decode_change(change_token)
 
     if not change_info:
-        raise Exception('Invalid change')
+        raise InvalidChangeError(f'Change "{change_id}" invalid')
 
     return change_info
 
@@ -262,13 +262,13 @@ def get_changes_by_author(author_email: str) -> dict:
     all_changes = get_changes()
     all_changes_decoded = []
 
-    for a in all_changes.values():
-        change_info = _decode_change(a)
+    for change_id, change_token in all_changes.items():
+        change_info = _decode_change(change_token)
         if change_info:
             if author_email == change_info['author_email']:
                 all_changes_decoded.append(change_info)
         else:
-            raise Exception('Invalid change')
+            raise InvalidChangeError(f'Change "{change_id}" invalid')
 
     return all_changes_decoded
 
