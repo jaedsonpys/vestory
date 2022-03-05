@@ -91,7 +91,7 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
         json.dump(vestory_config, file_w, indent=4)
 
 
-def _check_invalid_change(change_token: str) -> bool:
+def _check_valid_change(change_token: str) -> bool:
     change_info = integrity.decode_without_key(change_token)
     author, author_email = get_author_info()
     repo_key = get_repo_key()
@@ -99,9 +99,9 @@ def _check_invalid_change(change_token: str) -> bool:
     if change_info['author_email'] == author_email:
         change_info = integrity.decode_token(change_token, repo_key)
         if not change_info:
-            raise Exception('Invalid change')
+            return False
 
-    return False
+    return True
 
 
 def check_file_has_changed(filename: str) -> bool:
@@ -223,12 +223,17 @@ def get_file_changes(_filepath: str) -> list:
     file_changes = []
     changes = get_changes()
     
-    for change_id, token in changes.items():
+    for change_id, token in changes.items() and:
         # decode token
         change_info = integrity.decode_without_key(token)
-        for filepath, fileinfo in change_info['changed_files'].items():
-            if filepath == _filepath:
-                file_changes.append((change_id, fileinfo))
+        has_valid = _check_valid_change(token)
+        
+        if has_valid:
+            for filepath, fileinfo in change_info['changed_files'].items():
+                if filepath == _filepath:
+                    file_changes.append((change_id, fileinfo))
+        else:
+            raise Exception('Invalid change')
 
     return file_changes
 
