@@ -144,10 +144,10 @@ def init_repo(author: str, author_email: str) -> bool:
     mkdir(REPO_PATH)
     init_date = str(datetime.now())
 
-    # adicionando arquivo de configuração
-    vestory_config = {
+    repo_config = {
         'author': author,
         'author_email': author_email,
+        'key': _generate_id(),
         'init_date': init_date,
         'tracking_files': dict(),
         'changes': dict()
@@ -155,7 +155,7 @@ def init_repo(author: str, author_email: str) -> bool:
 
     # salvando configurações    
     with open(VESTORY_FILE, 'w') as file_w:
-        json.dump(vestory_config, file_w, indent=4)
+        json.dump(repo_config, file_w, indent=4)
 
     return True
 
@@ -194,6 +194,13 @@ def get_author_info() -> tuple:
         config = json.load(file_r)
 
     return (config['author'], config['author_email'])
+
+
+def get_repo_key() -> str:
+    with open(VESTORY_FILE, 'r') as file_r:
+        config = json.load(file_r)
+
+    return config['key']
 
 
 def get_file_changes(_filepath: str) -> list:
