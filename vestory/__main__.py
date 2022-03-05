@@ -30,6 +30,11 @@ def main():
     parser.add_argument('status', 'View status of files', 'store_true')
     parser.add_argument('join', 'Join changes of files', action='store_true')
 
+    # config
+    parser.add_argument('config', 'Add config to Vestory', action='store_true')
+    parser.add_flag('--name', 'Set author name')
+    parser.add_flag('--email', 'Set author email')
+
     parser.add_flag('-a', 'Select all files', action='store_true')
     parser.add_flag('-c', 'Comment the change')
     parser.add_flag('-ac', 'Select all files and comment the change')
@@ -38,6 +43,19 @@ def main():
     repo_exists = check_repo_exists()
 
     if args.version or args.help:
+        return None
+
+    if args.config:
+        if args.email and args.name:
+            set_author_name(args.name)
+            set_author_email(args.email)
+        elif args.email:
+            set_author_email(args.email)
+        elif args.name:
+            set_author_name(args.name)
+        else:
+            print('error: use "--name" or "--email" to set config')
+    
         return None
 
     if args.init:
