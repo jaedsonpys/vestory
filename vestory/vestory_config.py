@@ -24,3 +24,15 @@ def _get_config() -> dict:
 def _save_config(config: dict) -> None:
     with open(CONFIG_FILE, 'w') as file_w:
         json.dump(config, file_w, indent=2, ensure_ascii=False)
+
+
+def set_author_name(author: str) -> None:
+    config = _get_config()
+    config['author'] = author
+    _save_config(config)
+
+
+def set_author_email(author_email: str) -> None:
+    config = _get_config()
+    config['author_email'] = author_email
+    _save_config(config)
