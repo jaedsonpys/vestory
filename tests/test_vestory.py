@@ -50,6 +50,10 @@ class TestVestory(SeqTest):
         self.is_true(os.path.isdir('./.vestory'), 'Repo is not created')
         self.is_true(os.path.isfile('./.vestory/vestory.json'), 'Vestory file not found')
 
+    def test_get_repo_key(self):
+        key = vestory.get_repo_key()
+        self.is_true(len(key) == 32, msg_error='Invalid repo key')
+
     def test_get_author(self):
         author, author_email = vestory.get_author_info()
         self.is_true(author == 'Jaedson', 'Author incorrect')
