@@ -36,3 +36,9 @@ def set_author_email(author_email: str) -> None:
     config = _get_config()
     config['author_email'] = author_email
     _save_config(config)
+
+
+if __name__ == '__main__':
+    create_config()
+    set_author_name('Jaedson')
+    set_author_email('test@mail.com')
