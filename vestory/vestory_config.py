@@ -3,7 +3,7 @@ import json
 
 HOME = os.getenv('HOME')
 CONFIG_FILE = os.path.join(HOME, '.vestoryconfig')
-CONFIG = {'author': None, 'author_email': None}
+CONFIG = {'user': {'author': None, 'author_email': None}}
 
 
 def create_config() -> None:
@@ -29,19 +29,20 @@ def _save_config(config: dict) -> None:
 
 def set_author_name(author: str) -> None:
     config = _get_config()
-    config['author'] = author
+    config['user']['author'] = author
     _save_config(config)
 
 
 def set_author_email(author_email: str) -> None:
     config = _get_config()
-    config['author_email'] = author_email
+    config['user']['author_email'] = author_email
     _save_config(config)
 
 
 def get_author() -> tuple:
     config = _get_config()
-    return (config['author'], config['author_email'])
+    author, email = config['user'].values()
+    return (author, email)
 
 
 if __name__ == '__main__':
