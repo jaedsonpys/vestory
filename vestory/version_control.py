@@ -91,7 +91,7 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
         json.dump(vestory_config, file_w, indent=4)
 
 
-def _decode_change(change_token: str) -> Union[bool, dict]:
+def decode_change(change_token: str) -> Union[bool, dict]:
     change_info = integrity.decode_without_key(change_token)
     author, author_email = get_author_info()
     repo_key = get_repo_key()
@@ -224,7 +224,7 @@ def get_file_changes(_filepath: str) -> list:
     changes = get_changes()
     
     for change_id, token in changes.items():
-        change_info = _decode_change(token)
+        change_info = decode_change(token)
         if change_info:
             for filepath, fileinfo in change_info['changed_files'].items():
                 if filepath == _filepath:
@@ -238,7 +238,7 @@ def get_file_changes(_filepath: str) -> list:
 def get_change_info_by_id(change_id: str) -> Union[dict, None]:
     all_changes = get_changes()
     change_token = all_changes.get(change_id)
-    change_info = _decode_change(change_token)
+    change_info = decode_change(change_token)
 
     if not change_info:
         raise InvalidChangeError(f'Change "{change_id}" invalid')
@@ -263,7 +263,7 @@ def get_changes_by_author(author_email: str) -> dict:
     all_changes_decoded = []
 
     for change_id, change_token in all_changes.items():
-        change_info = _decode_change(change_token)
+        change_info = decode_change(change_token)
         if change_info:
             if author_email == change_info['author_email']:
                 all_changes_decoded.append(change_info)
