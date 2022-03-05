@@ -128,6 +128,10 @@ class TestVestory(SeqTest):
             msg_error='Incorrect change join'
         )
 
+    def test_get_changes_by_author(self):
+        author_changes = vestory.get_changes_by_author('test@mail.com')
+        self.is_true(len(author_changes) == 2, msg_error='Author changes incorrect')
+
 
 if __name__ == '__main__':
     TestVestory().run()
