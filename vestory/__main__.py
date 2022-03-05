@@ -1,16 +1,11 @@
 import os
+
 from argeasy import ArgEasy
 
-from .version_control import (
-    add_files,
-    get_files_changed,
-    init_repo,
-    submit_change,
-    get_changes,
-    join_changes,
-    get_files_tracked,
-    check_repo_exists
-)
+from .vestory_config import set_author_email, set_author_name
+from .version_control import (add_files, check_repo_exists, get_changes,
+                              get_files_changed, get_files_tracked, init_repo,
+                              join_changes, submit_change)
 
 EXEC_PATH = os.getcwd()
 
