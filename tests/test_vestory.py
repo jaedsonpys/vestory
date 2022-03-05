@@ -68,8 +68,8 @@ class TestVestory(SeqTest):
         self.check_any_value(tracked_files, len(self.files), 'File not added')
 
     def test_submit(self):
-        change_id = vestory.submit_change(self.files, 'first submit')
-        change_info = vestory.get_change_info_by_id(change_id)
+        self.change_id = vestory.submit_change(self.files, 'first submit')
+        change_info = vestory.get_change_info_by_id(self.change_id)
         self.is_true(isinstance(change_info, dict), msg_error='Change info not found')
 
     def test_change_file(self):
@@ -132,6 +132,21 @@ class TestVestory(SeqTest):
         author_changes = vestory.get_changes_by_author('test@mail.com')
         self.is_true(len(author_changes) == 2, msg_error='Author changes incorrect')
 
+    def test_invalidating_change(self):
+        with open('./.vestory/vestory.json') as file_r:
+            vestory_file = json.load(file_r)
+
+        vestory_file['changes'][self.change_id] = 'eyJhdXRob3JfZW1haWwiOiAidGVzdEBtYWlsLmNvbSJ9.82dad4de27db35733865b972745659f1'
+        with open('./.vestory/vestory.json', 'w') as file_w:
+            json.dump(vestory_file, file_w, ensure_ascii=False)
+
+    def test_get_changes_by_author_2(self):
+        try:
+            vestory.get_changes_by_author('test@mail.com')
+        except vestory.InvalidChangeError:
+            self.is_true(True)
+        else:
+            self.is_true(False, msg_error='Invalid change not detected')
 
 if __name__ == '__main__':
     TestVestory().run()
