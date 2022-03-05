@@ -223,7 +223,7 @@ def get_file_changes(_filepath: str) -> list:
     file_changes = []
     changes = get_changes()
     
-    for change_id, token in changes.items() and:
+    for change_id, token in changes.items():
         # decode token
         change_info = integrity.decode_without_key(token)
         has_valid = _check_valid_change(token)
