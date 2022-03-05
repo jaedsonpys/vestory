@@ -2,10 +2,11 @@ import os
 
 from argeasy import ArgEasy
 
-from .vestory_config import set_author_email, set_author_name, get_author
-from .version_control import (add_files, check_repo_exists, get_changes,
-                              get_files_changed, get_files_tracked, init_repo,
-                              join_changes, submit_change)
+from .version_control import (InvalidChangeError, add_files, check_repo_exists,
+                              decode_change, get_changes, get_files_changed,
+                              get_files_tracked, init_repo, join_changes,
+                              submit_change)
+from .vestory_config import get_author, set_author_email, set_author_name
 
 EXEC_PATH = os.getcwd()
 
@@ -103,9 +104,20 @@ def main():
         elif args.log:
             changes = get_changes()
             changes_list = []
+            invalid_changes = []
 
-            for change_id, change_info in changes.items():
-                changes_list.append((change_id, change_info))
+            for change_id, change_token in changes.items():
+                change_info = decode_change(change_token)
+                if not change_token:
+                    invalid_changes.append(change_id)
+                else:
+                    changes_list.append((change_id, change_info))
+            
+            if invalid_changes:
+                print('error: invalid changes detected:')
+                for i in invalid_changes:
+                    print(f'    \033[31mINVALID\033[m: {i}')
+                    return None
 
             # last changes first
             changes_list.reverse()
