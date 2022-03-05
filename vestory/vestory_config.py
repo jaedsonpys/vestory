@@ -3,12 +3,21 @@ import json
 
 HOME = os.getenv('HOME')
 CONFIG_FILE = os.path.join(HOME, '.vestoryconfig')
+CONFIG = {'author': None, 'author_email': None}
 
 
-def _get_config() -> None:
+def create_config() -> None:
+    _save_config(CONFIG)
+
+
+def _get_config() -> dict:
+    if not os.path.isfile(CONFIG_FILE):
+        create_config()
+        return CONFIG
+
     with open(CONFIG_FILE, 'r') as file_r:
         config = json.load(file_r)
-    
+
     return config
 
 
