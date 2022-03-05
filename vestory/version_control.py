@@ -222,7 +222,8 @@ def get_file_changes(_filepath: str) -> list:
 
 def get_change_info_by_id(change_id: str) -> Union[dict, None]:
     all_changes = get_changes()
-    return all_changes.get(change_id)
+    change = integrity.decode_without_key(all_changes.get(change_id))
+    return change
 
 
 def get_changes() -> dict:
@@ -269,8 +270,10 @@ def join_changes() -> dict:
     changes = get_changes()
     joined_changes = {}
 
-    for change_info in changes.values():
+    for change_token in changes.values():
+        change_info = integrity.decode_without_key(change_token)
         changed_files = change_info['changed_files']
+        
         for filepath in changed_files.keys():
             file_changes = get_file_changes(filepath)
             joined_changes[filepath] = join_file_changes(file_changes)
