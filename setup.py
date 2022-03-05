@@ -1,4 +1,14 @@
 from setuptools import setup
+from setuptools.command.install import install
+from vestory import vestory_config
+
+
+class Prepare(install):
+    def run(self):
+        install.run(self)
+        # create config file in home diretory
+        vestory_config.create_config()
+
 
 setup(
     author='Jaedson Silva',
@@ -6,6 +16,7 @@ setup(
     name='vestory',
     version='1.2.0',
     packages=['vestory'],
+    cmdclass={'install': Prepare},
     install_requires=['PySeqTest', 'argeasy'],
     entry_points={
         'console_scripts': [
