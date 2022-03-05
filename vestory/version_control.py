@@ -236,6 +236,22 @@ def get_changes() -> dict:
     return changes
 
 
+def get_changes_by_author(author_email: str) -> dict:
+    """Obtém as alterações de um autor"""
+
+    repo_key = get_repo_key()
+    all_changes = get_changes()
+    all_changes_decoded = []
+
+    for a in all_changes.values():
+        change_info = integrity.decode_token(a, repo_key)
+        if change_info is not False:
+            if change_info['author_email'] == author_email:
+                all_changes_decoded.append(change_info)
+
+    return all_changes_decoded
+
+
 def _add_new_change(
     change_id: str,
     change_info: dict
@@ -273,7 +289,7 @@ def join_changes() -> dict:
     for change_token in changes.values():
         change_info = integrity.decode_without_key(change_token)
         changed_files = change_info['changed_files']
-        
+
         for filepath in changed_files.keys():
             file_changes = get_file_changes(filepath)
             joined_changes[filepath] = join_file_changes(file_changes)
