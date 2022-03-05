@@ -8,6 +8,7 @@ from random import choice
 from string import ascii_letters, digits
 from typing import Final, Union
 
+from . import integrity
 from .exceptions import RepoNotExistsError
 
 LOCAL: Final = getcwd()
@@ -239,7 +240,9 @@ def _add_new_change(
     with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
-    vestory_config['changes'][change_id] = change_info
+    repo_key = get_repo_key()
+    change_info_token = integrity.create_token(change_info, repo_key)
+    vestory_config['changes'][change_id] = change_info_token
 
     with open(VESTORY_FILE, 'w') as file_w:
         json.dump(vestory_config, file_w, ensure_ascii=False, indent=4)
