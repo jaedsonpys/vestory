@@ -7,7 +7,8 @@ CONFIG = {'author': None, 'author_email': None}
 
 
 def create_config() -> None:
-    _save_config(CONFIG)
+    if not os.path.isfile(CONFIG_FILE):
+        _save_config(CONFIG)
 
 
 def _get_config() -> dict:
