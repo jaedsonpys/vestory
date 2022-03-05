@@ -91,6 +91,19 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
         json.dump(vestory_config, file_w, indent=4)
 
 
+def _check_invalid_change(change_token: str) -> bool:
+    change_info = integrity.decode_without_key(change_token)
+    author, author_email = get_author_info()
+    repo_key = get_repo_key()
+
+    if change_info['author_email'] == author_email:
+        change_info = integrity.decode_token(change_token, repo_key)
+        if not change_info:
+            raise Exception('Invalid change')
+
+    return False
+
+
 def check_file_has_changed(filename: str) -> bool:
     """Checa se o arquivo foi alterado"""
 
