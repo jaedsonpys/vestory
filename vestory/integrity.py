@@ -45,7 +45,19 @@ def decode_tokens(tokens: list, key: str) -> list:
     return decoded_tokens
 
 
-def decode_without_key(token: str):
+def decode_without_key(token: str) -> dict:
+    """Decodifica um token
+    sem a necessidade da chave.
+
+    Sem a chave, é impossível
+    garantir a integridade.
+
+    :param token: Token 
+    :type token: str
+    :return: Conteúdo do token
+    :rtype: dict
+    """
+
     try:
         token_content = utoken.decode_without_key(token)
     except (
