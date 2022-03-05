@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from time import sleep
 
 sys.path.insert(0, './')
 
@@ -129,6 +130,7 @@ class TestVestory(SeqTest):
         )
 
     def test_get_changes_by_author(self):
+        sleep(10)
         author_changes = vestory.get_changes_by_author('test@mail.com')
         self.is_true(len(author_changes) == 2, msg_error='Author changes incorrect')
 
