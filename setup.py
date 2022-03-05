@@ -17,7 +17,7 @@ setup(
     version='1.2.0',
     packages=['vestory'],
     cmdclass={'install': Prepare},
-    install_requires=['PySeqTest', 'argeasy'],
+    install_requires=['PySeqTest', 'argeasy', 'utokeniz'],
     entry_points={
         'console_scripts': [
             'vestory = vestory.__main__:main'
