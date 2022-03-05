@@ -43,3 +43,16 @@ def decode_tokens(tokens: list, key: str) -> list:
         decode_token.append(content)
     
     return decoded_tokens
+
+
+def decode_without_key(token: str):
+    try:
+        token_content = utoken.decode_without_key(token)
+    except (
+        InvalidContentTokenError,
+        ExpiredTokenError,
+        InvalidTokenError
+    ):
+        return False
+    else:
+        return token_content
