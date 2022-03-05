@@ -39,6 +39,11 @@ def set_author_email(author_email: str) -> None:
     _save_config(config)
 
 
+def get_author() -> tuple:
+    config = _get_config()
+    return (config['author'], config['author_email'])
+
+
 if __name__ == '__main__':
     create_config()
     set_author_name('Jaedson')
