@@ -106,6 +106,16 @@ def decode_change(change_token: str) -> Union[bool, dict]:
     return change_info
 
 
+def _is_binary(filepath: str) -> bool:
+    try:
+        with open(filepath, 'r') as file_r:
+            file_r.read(1024)
+    except UnicodeDecodeError:
+        return True
+
+    return False
+
+
 def check_file_has_changed(filename: str) -> bool:
     """Checa se o arquivo foi alterado"""
 
