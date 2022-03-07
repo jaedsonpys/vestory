@@ -374,32 +374,46 @@ def submit_change(files: list, comment: str) -> None:
 
     for filepath in files:
         if check_file_has_changed(filepath):
-            with open(filepath, 'rb') as file_r:
-                file_content = file_r.readlines()
-
             file_id = _generate_id()
-            file_lines = _enumerate_lines(file_content)
-            file_lines_str = json.dumps(file_lines)
-            file_lines_b64 = b64encode(file_lines_str.encode()).decode()
-            hash_lines = md5(file_lines_str.encode()).hexdigest()
 
-            changed_files[filepath] = {
-                'file_id': file_id,
-                'hash': hash_lines,
-                'content': file_lines_b64
-            }
+            if _is_binary(filepath):
+                with open(filepath, 'rb') as file_r:
+                    file_content = file_r.read()
 
-            all_changes = get_file_changes(filepath)
+                hash_file = md5(file_content).hexdigest()
+                file_content_b64 = b64encode(file_content)
 
-            if all_changes:
-                joined_changes = join_file_changes(all_changes)
+                changed_files[filepath] = {
+                    'file_id': file_id,
+                    'hash': hash_file,
+                    'content': file_content_b64.decode()
+                }
+            else:
+                with open(filepath, 'r') as file_r:
+                    file_content = file_r.readlines()
 
-                difference = check_diff(joined_changes, file_lines)
-                difference_bytes = json.dumps(difference).encode()
-                difference_b64 = b64encode(difference_bytes).decode()
-                changed_files[filepath]['content'] = difference_b64
+                file_lines = _enumerate_lines(file_content)
+                file_lines_str = json.dumps(file_lines)
+                file_lines_b64 = b64encode(file_lines_str.encode()).decode()
+                hash_file = md5(file_lines_str.encode()).hexdigest()
 
-            _update_file_hash(filepath, hash_lines)
+                changed_files[filepath] = {
+                    'file_id': file_id,
+                    'hash': hash_file,
+                    'content': file_lines_b64
+                }
+
+                all_changes = get_file_changes(filepath)
+
+                if all_changes:
+                    joined_changes = join_file_changes(all_changes)
+
+                    difference = check_diff(joined_changes, file_lines)
+                    difference_bytes = json.dumps(difference).encode()
+                    difference_b64 = b64encode(difference_bytes).decode()
+                    changed_files[filepath]['content'] = difference_b64
+
+            _update_file_hash(filepath, hash_file)
             
         change_info['changed_files'] = changed_files
         _add_new_change(change_id, change_info)
