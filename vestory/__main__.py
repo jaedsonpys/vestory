@@ -100,7 +100,9 @@ def main():
                     return None
                 files_to_submit = args.submit
 
-            submit_change(files_to_submit, comment)
+            len_files = len(files_to_submit)
+            change_id = submit_change(files_to_submit, comment)
+            print(f'{len_files} changed (ID: {change_id})')
         elif args.log:
             changes = get_changes()
             changes_list = []
