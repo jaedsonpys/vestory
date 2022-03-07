@@ -40,6 +40,8 @@ def _get_files_to_ignore() -> list:
 
     for file in content:
         file = file.replace('\n', '')
+        if not file.startswith('./'):
+            file = os.path.join('./', file)
         ignored_files.append(file)
 
     return ignored_files
