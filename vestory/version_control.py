@@ -190,6 +190,9 @@ def add_files(files: list) -> None:
 
     for file in files:
         if file not in tracked_files and not check_ignored(file):
+            if not file.startswith('./'):
+                file = os.path.join('./', file)
+
             if path.isfile(file):
                 with open(file, 'rb') as file_r:
                     file_content = file_r.read()
