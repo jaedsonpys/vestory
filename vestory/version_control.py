@@ -125,20 +125,24 @@ def check_file_has_changed(filename: str) -> bool:
     tracked_files = get_files_tracked()
 
     if filename in tracked_files:
-        with open(filename, 'r') as file_r:
-            file_lines = file_r.readlines()
+        previous_hash = tracked_files.get(filename) 
 
-            enum_lines = _enumerate_lines(file_lines)
-            enum_lines_str = json.dumps(enum_lines)
-            hash_content = md5(enum_lines_str.encode()).hexdigest()
+        if _is_binary(filename):
+            with open(filename, 'rb') as file_r:
+                file_content = file_r.read()
 
-        previous_hash = tracked_files.get(filename)        
-        if hash_content != previous_hash:
-            return True
+            hash_content = md5(file_content).hexdigest()
         else:
-            return False
+            with open(filename, 'r') as file_r:
+                file_lines = file_r.readlines()
 
-    return False
+                enum_lines = _enumerate_lines(file_lines)
+                enum_lines_str = json.dumps(enum_lines)
+                hash_content = md5(enum_lines_str.encode()).hexdigest()
+
+        return hash_content != previous_hash
+    else:
+        return False
 
 
 def get_files_changed() -> list:
