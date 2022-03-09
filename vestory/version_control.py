@@ -24,6 +24,12 @@ def _generate_id() -> str:
 
 
 def get_files_tracked() -> dict:
+    """Get all monitored files.
+
+    :return: Returns a dictionary with all files.
+    :rtype: dict
+    """
+
     with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
 
@@ -48,6 +54,14 @@ def _get_files_to_ignore() -> list:
 
 
 def check_ignored(dir_or_file: str) -> bool:
+    """Checks if the file/directory is being ignored.
+
+    :param dir_or_file: File or directory.
+    :type dir_or_file: str
+    :return: Returns True for ignored.
+    :rtype: bool
+    """
+
     ignored_files = _get_files_to_ignore()
 
     if dir_or_file in ignored_files:
@@ -94,6 +108,18 @@ def _update_file_hash(filename: str, new_hash: str) -> None:
 
 
 def decode_change(change_token: str) -> Union[bool, dict]:
+    """Decode a token from a change.
+
+    If the return value is False, it
+    means the token is invalid or the key
+    is invalid.
+
+    :param change_token: Change token
+    :type change_token: str
+    :return: Returns the value of the token or False.
+    :rtype: Union[bool, dict]
+    """
+    
     change_info = integrity.decode_without_key(change_token)
     author, author_email = get_author_info()
     repo_key = get_repo_key()
@@ -117,7 +143,15 @@ def _is_binary(filepath: str) -> bool:
 
 
 def check_file_has_changed(filename: str) -> bool:
-    """Checa se o arquivo foi alterado"""
+    """Checks if the file has been changed.
+    Checking works through the use of MD5 hash.
+
+    :param filename: Name of the file to be checked.
+    :type filename: str
+    :raises RepoNotExistsError: non-existent repository
+    :return: Returns True if the file has been changed.
+    :rtype: bool
+    """
 
     if not check_repo_exists():
         raise RepoNotExistsError('Repositório não encontrado')
@@ -146,7 +180,11 @@ def check_file_has_changed(filename: str) -> bool:
 
 
 def get_files_changed() -> list:
-    """Retorna quais arquivos foram alterados"""
+    """Get all changed files.
+
+    :return: Returns a list of files that have changed.
+    :rtype: list
+    """
 
     tracked_files = get_files_tracked()
     changed_files = []
@@ -160,10 +198,9 @@ def get_files_changed() -> list:
 
 
 def init_repo(author: str, author_email: str) -> bool:
-    """Inicializa um repositório
-    vazio.
+    """Initializes an empty repository.
 
-    :param local: Local do repositório.
+    :param local: Repository location.
     :type local: str
     """
 
@@ -191,10 +228,9 @@ def init_repo(author: str, author_email: str) -> bool:
 
 
 def add_files(files: list) -> None:
-    """Adiciona os arquivos
-    a árvore de rastreamento.
+    """Add the files the trace tree.
 
-    :param files: Arquivos a serem adicionados.
+    :param files: Files to add.
     :type files: list
     """
 
@@ -222,7 +258,14 @@ def add_files(files: list) -> None:
     _update_tracked_files(tracked_files)
 
 
-def get_author_info() -> tuple:
+def get_author_info() -> tuple:    
+    """Gets the author information of
+    the repository.
+
+    :return: Returns the author's name and email.
+    :rtype: tuple
+    """
+
     with open(VESTORY_FILE, 'r') as file_r:
         config = json.load(file_r)
 
@@ -237,7 +280,14 @@ def get_repo_key() -> str:
 
 
 def get_file_changes(_filepath: str) -> list:
-    """Obtém todas as alterações de um arquivo"""
+    """Get all changes from a file.
+
+    :param _filepath: Filepath
+    :type _filepath: str
+    :raises InvalidChangeError: If change validation fails.
+    :return: Returns a list of file changes.
+    :rtype: list
+    """
 
     file_changes = []
     changes = get_changes()
@@ -255,6 +305,15 @@ def get_file_changes(_filepath: str) -> list:
 
 
 def get_change_info_by_id(change_id: str) -> Union[dict, None]:
+    """Gets the information of a change by ID.
+
+    :param change_id: Change ID.
+    :type change_id: str
+    :raises InvalidChangeError: If change validation fails.
+    :return: Returns the change information.
+    :rtype: Union[dict, None]
+    """
+
     all_changes = get_changes()
     change_token = all_changes.get(change_id)
     change_info = decode_change(change_token)
@@ -266,7 +325,11 @@ def get_change_info_by_id(change_id: str) -> Union[dict, None]:
 
 
 def get_changes() -> dict:
-    """Obtém todas as alterações"""
+    """Gets all changes (not decoded).
+
+    :return: Returns the changes.
+    :rtype: dict
+    """
 
     with open(VESTORY_FILE, 'r') as file_r:
         vestory_config = json.load(file_r)
@@ -276,7 +339,14 @@ def get_changes() -> dict:
 
 
 def get_changes_by_author(author_email: str) -> dict:
-    """Obtém as alterações de um autor"""
+    """Gets all changes from a given author (decoded).
+
+    :param author_email: Author's email.
+    :type author_email: str
+    :raises InvalidChangeError: If change validation fails.
+    :return: Returns the changes.
+    :rtype: dict
+    """
 
     all_changes = get_changes()
     all_changes_decoded = []
@@ -308,7 +378,7 @@ def _add_new_change(
 
 
 def join_file_changes(changes: list) -> dict:
-    """Junta todas as alterações de um arquivo"""
+    """Merge all changes to a file"""
 
     joined_changes = {}
     for change_id, file_info in changes:
@@ -320,8 +390,7 @@ def join_file_changes(changes: list) -> dict:
 
 
 def join_changes() -> dict:
-    """Retorna a junção de todas as alterações
-    de todos os arquivos."""
+    """Returns the merge of all changes from all files."""
 
     changes = get_changes()
     joined_changes = {}
@@ -338,7 +407,7 @@ def join_changes() -> dict:
 
 
 def check_diff(joined_changes: dict, current_change: dict) -> dict:
-    """Retorna a diferença entre dois arquivos"""
+    """Returns the difference between two files"""
 
     diff = {}
 
@@ -354,10 +423,9 @@ def check_diff(joined_changes: dict, current_change: dict) -> dict:
 
 
 def submit_change(files: list, comment: str) -> None:
-    """Salva a alteração
-    de arquivos.
+    """Saves the change to the specified files.
 
-    :param files: Arquivos a serem submetidos.
+    :param files: Files to be submitted.
     :type files: list
     """
 
