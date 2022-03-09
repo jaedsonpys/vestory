@@ -304,7 +304,7 @@ def get_file_changes(_filepath: str) -> list:
     return file_changes
 
 
-def get_change_info_by_id(change_id: str) -> Union[dict, None]:
+def get_change_info_by_id(change_id: str) -> dict:
     """Gets the information of a change by ID.
 
     :param change_id: Change ID.
