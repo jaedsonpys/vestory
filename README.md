@@ -3,34 +3,15 @@
 ![BADGE](https://img.shields.io/static/v1?label=license&message=GPL%20v3.0&color=red&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=language&message=Python&color=orange&style=flat-square)
 
-**Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use. 
-
-> Version control **better than Vestory** is now available, [meet Pie](https://github.com/jaedsonpys/pie) now!
-
-### Links
-
-- [Version 1.2](#Version-1.2)
-- [Installation](#Installation)
-- [How it works](#How-it-works)
-- [Using the Vestory](#Using-the-Vestory)
-    - [Initializing repository](#Initializing-repository)
-    - [Add files](#Add-files)
-    - [Submit Changes](#Submit-Changes)
-    - [Merge changes](#Merge-changes)
-    - [View change-log](#View-change-log)
-    - [File Status](#File-Status)
-    - [Ignoring files or directories](#Ignoring-files-or-directories)
-- [License](#License)
-
-## Version 1.2
-
-This version of Vestory can:
+**Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use. With Vestory, you can:
 
 - [x] Monitor file changes;
+- [x] Merge file changes;
 - [x] Save file changes;
 - [x] View change logs;
-- [x] Merge file changes;
-- [x] Ignore files;
+- [x] Ignore files.
+
+> Version control **better than Vestory** is now available, [meet Pie](https://github.com/jaedsonpys/pie) now!
 
 ## Installation
 
