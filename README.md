@@ -3,9 +3,9 @@
 ![BADGE](https://img.shields.io/static/v1?label=license&message=GPL%20v3.0&color=red&style=flat-square)
 ![BADGE](https://img.shields.io/static/v1?label=language&message=Python&color=orange&style=flat-square)
 
-**Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use.
+**Vestory** (junction of "Version" and "History"), is a practical and fast version control used in any terminal by command line (**CLI**). With simple and easy-to-remember commands, making it easy to use. 
 
-The project is open source under the GNU General Public License v3.0. [Read the license](#License)
+> Version control **better than Vestory** is now available, [meet Pie](https://github.com/jaedsonpys/pie) now!
 
 ### Links
 
